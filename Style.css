@@ -1,0 +1,317 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #fee5f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "aside main"
+    "footer footer";
+  grid-template-columns: 400px 1fr;
+  grid-template-rows: auto 1fr auto;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "main main"
+    "footer footer";
+  grid-template-columns: 400px 1fr;
+  grid-template-rows: auto 1fr auto;
+}
+
+header {
+  grid-area: header;
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.over-header {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+  background-color:#464646;
+  color: white;
+  font-size: 0.9rem;
+  padding: 8px 0;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: #ffcbf5;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+.menu {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+}
+
+.menu a {
+  color: #333;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.menu a:hover {
+  color: rgb(255, 101, 217);
+}
+
+.cart {
+  font-weight: 500;
+}
+
+.icon {
+  width: 20px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: rgb(255, 101, 217);
+  color: white;
+  padding: 14px 100px;
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 310px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #333;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  border-radius: 8px;
+}
+
+.dropdown-content a:hover {
+  background-color: #f2f2f2;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: rgb(235, 80, 200);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 30px 20px 15px;
+}
+
+.description {
+  max-width: 600px;
+  margin: 0 auto 20px;
+  text-align: center;
+  color: #666;
+  font-size: 1rem;
+  padding: 0 15px;
+}
+
+button {
+  background-color: rgb(255, 101, 217);
+  color: white;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+button:hover {
+  background-color: rgb(235, 80, 200);
+  transform: translateY(-2px);
+}
+
+aside {
+  grid-area: aside;
+  display: flex;              
+  justify-content: center;    
+  align-items: start;         
+  padding-top: 40px;          
+}
+
+
+main {
+  grid-area: main;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 40px;
+  justify-content: center;
+  align-items: start;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+  min-height: 340px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.img-container {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 16px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #f7f7f7;
+  border-radius: 8px;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card h3 {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.card p {
+  margin-bottom: 12px;
+  font-weight: 500;
+  color: #444;
+}
+
+footer {
+  grid-area: footer;
+  text-align: center;
+  padding: 20px;
+  background:#ffcbf5;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.tabla-productos th,
+.tabla-productos td {
+  padding: 16px 60px;
+  text-align: center;
+}
+
+.tabla-productos  {
+  margin-bottom: 150px;
+}
+
+.producto-detalle  {
+  display: flex;
+  gap: 100px;
+  padding: 50px;
+  margin-bottom: 200px;
+}
+
+.outline {
+  display: flex;
+  align-items: center;
+  background-color: #fff3fe;
+  padding: 20px;
+  border-radius: 40px;
+  height: 400px;
+  width: auto;
+}
+
+.descripcion {
+  padding-top: 10px;
+  padding-bottom: 100px;
+  max-width: 650px;
+}
+
+.info-producto h1 {
+  padding-bottom: 20px;
+}
+
+.img-producto  {
+  display: inline;
+  width: 400px;
+}
+
+.purchase-form  {
+  margin-bottom: 450px;
+}
+
+/* Acá empieza el formulario de compra */
+
+.form-group {
+  display:flex;
+}
+
+.form-group div  {
+  width: 200px;
+}
+
+.Rellenar  {
+  color: gray;
+  width: 400px;
+  height: 30px;
+  border-color: white;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.Rellenar option  {
+  color: gray;
+}
+
+.button  {
+  margin-top: 50px;
+}
