@@ -1,0 +1,1 @@
+Este proyecto es un e-commerce sobre una pastelería integrando como tecnologías html,css y en un futuro javascript más algún framework necesario. Centrado en la estética, este proyecto busca facilitar a los compradores el acceso a los productos de la pastelería.
