@@ -1,8 +1,14 @@
 <?php 
 
-$serverName = 'localhost';
+// Hosting
+//$serverName = 'sql103.infinityfree.com';
+//$userName = 'root';
+//$password = 'if0_40116669';
+//$dbName = 'if0_40116669_ecommerce';
+
+// Pruebas locales
+$ServerName = 'localhost';
 $userName = 'root';
-// $password = '110402BeS44150784';
 $password = '';
 $dbName = 'ecommerce';
 

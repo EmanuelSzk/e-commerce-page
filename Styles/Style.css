@@ -103,7 +103,7 @@ header {
 }
 
 .carrito-icon:hover {
-  transform: translateY(-7px) scale(1.2);
+  transform: scale(1.1);
   transition: transform 0.3s;
 }
 
@@ -114,7 +114,7 @@ main {
 /* Hero section */
 
 .hero-section {
-  margin-top: 100px;
+  margin-top: 50px;
   background-color: #fbdee2;
   background: linear-gradient(220deg, #fee5f9 50%, #ffa1eb 100%);
   height: 500px;

@@ -36,6 +36,9 @@ function ready() {
 
     document.getElementsByClassName('btn-pagar')[0].addEventListener('click',pagarClicked);
 
+    var CarritoLogo = document.getElementById('carrito-icon');
+    CarritoLogo.addEventListener('click', ocultarCarrito);
+
 }
 
 function eliminarItemCarrito(event) {
@@ -71,7 +74,7 @@ function actualizarTotalCarrito() {
     document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
 }
 
-//function ocultarCarrito() {
+function ocultarCarrito() {
     var carritoItems = document.getElementsByClassName('carrito-item');
     if (carritoItems.length == 0) {
         var carrito = document.getElementsByClassName('carrito')[0];
@@ -79,7 +82,7 @@ function actualizarTotalCarrito() {
         carrito.style.opacity = '0';
         carritoVisible = false;
     }
-//}
+}
 
 function sumarCantidad(event) {
     var buttonClicked = event.target;
