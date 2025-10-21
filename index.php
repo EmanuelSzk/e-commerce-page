@@ -22,6 +22,14 @@ include 'php/conexion.php';
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> <!-- Libreria de Font Awesome - Para introducir iconos por medio del comando "fa-"-->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Plugin AOS (Animate On Scroll) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
 </head>
 
 <!-- Alt + Shift + f-->
@@ -146,7 +154,7 @@ include 'php/conexion.php';
 
             </section> <!-- Fin de todo el casho -->
 
-            <section class="products">
+            <section class="products" data-aos="fade-up">
                 <?php
                 // Traer productos de la base de datos
                 $sql = "SELECT nombre, precio, imgURL FROM products"; // ajusta el nombre de la tabla y columnas
@@ -216,7 +224,16 @@ include 'php/conexion.php';
             <p>&copy; 2025 Dulces Juliana | Todos los derechos reservados</p>
         </footer>
     </div>
-    
+
+    <script>
+        $(document).ready(function() {
+            AOS.init({
+                duration: 1000, // velocidad de animación
+                once: true // la animación ocurre solo una vez
+            });
+        });
+    </script>
+
     <script src="Scripts/script.js"></script>
 </body>
 
