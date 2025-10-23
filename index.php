@@ -24,15 +24,16 @@ include 'php/conexion.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> <!-- Libreria de Font Awesome - Para introducir iconos por medio del comando "fa-"-->
 </head>
 
-<!-- Alt + Shift + f-->
-<!-- Ctrol + Shift + p -->
-<!-- Alt + left click -->
+<!-- Alt + Shift + f (Arreglar indentación) -->
+<!-- Ctrl + Shift + p (Abrir buscador, word wrapp) -->
+<!-- Alt + left click (Escribir varias lineas a la vez) -->
+<!-- Ctrl + k + c (Comentar código) -->
 <!-- Pantalla al 75% en notebook -->
 
 <body>
     <div class="grid">
 
-        <header>
+        <!-- <header>
             <div class="over-header">
                 <span>
                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -73,7 +74,7 @@ include 'php/conexion.php';
 
             </nav>
 
-        </header>
+        </header> -->
 
         <main>
             <div class="hero-section">
