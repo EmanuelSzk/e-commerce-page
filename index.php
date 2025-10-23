@@ -27,8 +27,7 @@ include 'php/conexion.php';
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Plugin AOS (Animate On Scroll) -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 </head>
 
@@ -225,11 +224,12 @@ include 'php/conexion.php';
         </footer>
     </div>
 
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         $(document).ready(function() {
             AOS.init({
-                duration: 1000, // velocidad de animación
-                once: true // la animación ocurre solo una vez
+                duration: 1000,
+                once: true
             });
         });
     </script>
