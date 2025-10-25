@@ -26,12 +26,12 @@ P {
 button {
   background-color: #ff65d9;
   color: white;
-  margin-top: 2vw;
-  padding: 1vw 2vw;
+  margin-top: 20px;
+  padding: 15px 20px;
   border: none;
-  border-radius: 1vw;
+  border-radius: 15px;
   font-weight: 600;
-  font-size: 1vw;
+  font-size: 20px;
   cursor: pointer;
   transition: transform 0.2s, background 0.3s;
 }
@@ -54,24 +54,24 @@ header {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  gap: 20vw;
+  gap: 20px;
   background-color: #464646;
   color: white;
-  padding: 2vh 1vw;
-  font-size: 2vh;
+  padding: 10px 5px;
+  font-size: 15px;
 }
 
 .header-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5vw 2vw;
+  padding: 20px 10px;
   background: #ffcbf5;
-  box-shadow: 0px 1vw 2vw rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
 }
 
 .logo {
-  width: 10vh;
+  width: 100px;
 }
 
 .menu {
@@ -86,8 +86,7 @@ header {
   font-weight: 500;
   text-decoration: none;
   transition: color 0.3s;
-  font-size: 2vh;
-  padding-right: 0.5vw;
+  font-size: 15px;
 }
 
 .menu a:hover {
@@ -95,11 +94,11 @@ header {
 }
 
 .icon {
-  width: 2.5vh;
+  width: 20px;
 }
 
 .carrito-icon {
-  width: 5vh;
+  width: 50px;
   color: #333;
   cursor: pointer;
 }
@@ -118,12 +117,21 @@ main {
 .hero-section {
   background-color: #fbdee2;
   background: linear-gradient(220deg, #fee5f9 50%, #ffa1eb 100%);
-  height: 25vw;
+  height: 500px;
   display: flex;
   justify-content: space-between;
-  box-shadow: 0px 1vw 2vw rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
   line-height: 0.1;
   position: relative;
+}
+
+.prueba img {
+  margin-right: 0;
+  height: 100%;
+  clip-path: circle(60% at 60% 10vw);
+  z-index: 0;
+  right: 0;
+  position: absolute;
 }
 
 .fruti {
@@ -132,28 +140,21 @@ main {
 
 .fruti img {
   position: absolute;
-  width: 30vw;
+  width: 600px;
   bottom: 0;
-  left: 50%;
+  left: 50vw;
   transform: translateX(-50%);
   z-index: 1;
 }
 
-
-.prueba img {
-  margin-right: 0;
-  height: 100%;
-  clip-path: circle(60% at 60% 50%);
-  z-index: 0;
-}
-
 .info p {
   margin-top: 0;
-  font-size: 1vw;
+  font-size: 1rem;
 }
 
 .info {
   margin-left: 12vw;
+  z-index: 2;
 }
 
 .welcome2 {
@@ -166,13 +167,14 @@ main {
   /* Estándar */
   -webkit-text-fill-color: transparent;
   /* Versión con prefijo, necesaria en WebKit/Safari */
-  font-size: 5vw;
+  font-size: 6rem;
   font-weight: 400;
   line-height: 1.1;
-  max-width: 40vw;
+  max-width: 40rem;
   margin-bottom: 2vw;
   margin-top: 3vw;
   font-family: 'calistoga';
+  z-index: 2;
 }
 
 .pre-tittle {
@@ -581,33 +583,9 @@ footer {
 /* Parte responsive */
 
 /* Tablets */
-@media (max-width: 1024px) {
-  .over-header{
-    font-size: 1.5vw;
-    padding: 1vw 1vw;
-  }
+/* @media (max-width: 1024px) {
 
-  .header-nav {
-    padding: 1.1vw 1vw;
-  }
-
-  .menu a {
-    font-size: 1.5vw;
-  }
-
-  .logo {
-    width: 8vw;
-  }
-
-  .carrito-icon {
-    width: 5vw;
-  }
-
-  .icon {
-    width: 2.2vw;
-  }
-
-}
+} */
 
 /* Celulares */
 @media (max-width: 768px) {
@@ -615,37 +593,36 @@ footer {
 }
 
 /* Vista en celulares*/
-@media (max-width: 550px) {
+@media (max-width: 480px) {
 
-  /* HEADER */
   .over-header {
-    font-size: 3vw;
-    gap: 2vw;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .header-nav {
-    padding: 2vw 2vw;
-  }
-
-  .menu a {
-    font-size: 2.7vw;
+    display: grid;
+    grid-template-areas:
+    "logo carrito"
+    "menu menu";
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto;
   }
 
   .logo {
-    width: 14vw;
+    grid-area: logo;
+  }
+
+  .menu {
+    grid-area: menu;
+    justify-content: center;
   }
 
   .carrito-icon {
-    width: 7vw;
+    grid-area: carrito;
   }
 
-  .icon {
-    width: 4vw;
-  }
-
-  /* HERO-SECTION */
-
-  .hero-section  {
+  /* .hero-section  {
     height: 40vw;
   }
 
@@ -655,5 +632,5 @@ footer {
 
   footer  {
     font-size: 3vw;
-  }
-}
+  } */
+} 
