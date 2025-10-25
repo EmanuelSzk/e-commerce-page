@@ -11,7 +11,7 @@ include 'php/conexion.php';
     <meta charset="UTF-8">
     <title>E-commerce de Postres</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Styles/Style.css?v=1.1"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
+    <link rel="stylesheet" href="Styles/Style.css?v=1.9s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Poppins:wght@600;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +29,7 @@ include 'php/conexion.php';
 <!-- Alt + left click (Escribir varias lineas a la vez) -->
 <!-- Ctrl + k + c (Comentar código) -->
 <!-- Pantalla al 75% en notebook -->
+<!-- https://cssunitconverter.vercel.app/px-to-vw -->
 
 <body>
     <div class="grid">
@@ -64,7 +65,6 @@ include 'php/conexion.php';
                     <li><a href="#">Home</a></li>
                     <li><a href="#shop">Shop</a></li>
                     <li><a href="#about-me">About</a></li>
-                    <li><a href="#">Blog</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
                 <a id='carrito-icon'>
@@ -77,7 +77,7 @@ include 'php/conexion.php';
         </header>
 
         <main>
-            <!-- <div class="hero-section">
+            <div class="hero-section">
                 <div class="info">
                     <h2 class="welcome2">¡Delicious cake for everyone!</h2>
                     <div class="fruti">
@@ -95,7 +95,7 @@ include 'php/conexion.php';
                 </div>
             </div>
 
-            <h2 class="pre-tittle" id="shop">Most popular</h2>
+            <!-- <h2 class="pre-tittle" id="shop">Most popular</h2>
             <h2 class="welcome">¡Our Products!</h2>
 
             <section class="carrito" id="carrito">
