@@ -128,7 +128,7 @@ main {
 .prueba img {
   margin-right: 0;
   height: 100%;
-  clip-path: circle(60% at 60% 10vw);
+  clip-path: circle(60% at 60% 50%);
   z-index: 0;
   right: 0;
   position: absolute;
@@ -582,17 +582,44 @@ footer {
 
 /* Parte responsive */
 
-/* Tablets */
-/* @media (max-width: 1024px) {
+@media (max-width:1700px) {
+  .fruti img {
+    width: 35vw;
+  }
+}
 
-} */
+@media (max-width:1235px) {
+  .hero-section {
+    height: 42vw;
+  }
 
-/* Celulares */
+  .welcome2 {
+    font-size: 7.5vw;
+    max-width: 50vw;
+  }
+
+  .info p {
+    font-size: 2vw;
+  }
+
+  button {
+  background-color: #ff65d9;
+  color: white;
+  margin-top: 2vw;
+  padding: 2vw 2.5vw;
+  font-size: 2vw;
+  }
+  
+}
+
+@media (max-width: 1024px) {
+
+} 
+
 @media (max-width: 768px) {
   /* ajustes más fuertes */
 }
 
-/* Vista en celulares*/
 @media (max-width: 480px) {
 
   .over-header {
@@ -621,16 +648,4 @@ footer {
   .carrito-icon {
     grid-area: carrito;
   }
-
-  /* .hero-section  {
-    height: 40vw;
-  }
-
-  .welcome2 {
-    margin-top: 8vw;
-  }
-
-  footer  {
-    font-size: 3vw;
-  } */
 } 
