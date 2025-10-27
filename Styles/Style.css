@@ -371,11 +371,12 @@ main {
 
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-  align-items: start;
-  display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 220px));
+  gap: 1rem;
   justify-content: center;
+  /* align-items: start;
+  display: flex;
+  justify-content: center; */
 }
 
 .card {
@@ -398,8 +399,8 @@ main {
 }
 
 .img-container {
-  width: 180px;
-  height: 180px;
+  width: 150px;
+  height: 150px;
   margin: 0 auto 16px auto;
   display: flex;
   align-items: center;
@@ -603,18 +604,20 @@ footer {
   }
 
   button {
-  background-color: #ff65d9;
-  color: white;
-  margin-top: 2vw;
-  padding: 2vw 2.5vw;
-  font-size: 2vw;
+    margin-top: 2vw;
+    padding: 2vw 2.5vw;
+    font-size: 2vw;
   }
-  
+
+  .boton-item {
+    margin-top: 20px;
+    padding: 15px 20px;
+    font-size: 20px;
+  }
+
 }
 
-@media (max-width: 1024px) {
-
-} 
+@media (max-width: 1024px) {}
 
 @media (max-width: 768px) {
   /* ajustes más fuertes */
@@ -630,8 +633,8 @@ footer {
   .header-nav {
     display: grid;
     grid-template-areas:
-    "logo carrito"
-    "menu menu";
+      "logo carrito"
+      "menu menu";
     grid-template-rows: auto auto;
     grid-template-columns: auto auto;
   }
@@ -642,10 +645,53 @@ footer {
 
   .menu {
     grid-area: menu;
-    justify-content: center;
+    justify-content: space-around;
   }
 
   .carrito-icon {
     grid-area: carrito;
   }
-} 
+
+  /* Productos */
+  .products {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
+    /* gap: 1rem; */
+  }
+
+  .card {
+    /* border-radius: 12px;
+  padding: 20px; */
+    min-height: 240px;
+  }
+
+  .img-container {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 16px auto;
+    border-radius: 8px;
+  }
+
+  .img-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+  }
+
+  .card h3 {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .card p {
+    margin-bottom: 12px;
+    font-size: 0.8rem;
+  }
+
+  .boton-item {
+    margin-top: 10px;
+    padding: 10px 15px;
+    font-size: 15px;
+  }
+
+}
