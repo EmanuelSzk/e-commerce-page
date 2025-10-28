@@ -11,7 +11,7 @@ include 'php/conexion.php';
     <meta charset="UTF-8">
     <title>E-commerce de Postres</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Styles/Style.css?v=1.7s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
+    <link rel="stylesheet" href="Styles/Style.css?v=1.9s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Poppins:wght@600;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -99,7 +99,7 @@ include 'php/conexion.php';
             <h2 class="pre-tittle" id="shop">Most popular</h2>
             <h2 class="welcome">¡Our Products!</h2>
 
-            <!-- <section class="carrito" id="carrito">
+            <section class="carrito" id="carrito">
                 <div id="agregar-carrito">
                     <div class="header-carrito">
                         <svg style='fill: white;' width="3rem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
@@ -121,9 +121,9 @@ include 'php/conexion.php';
                                 <span class="carrito-item-precio">$12,00</span>
                             </div>
                         </div>
-                        <span class="btn-eliminar">
+                        <div class="btn-eliminar">
                             <i class="fa-solid fa-trash boton-eliminar"></i>
-                        </span>
+                        </div>
                     </div>
                 </div>
 
@@ -138,10 +138,8 @@ include 'php/conexion.php';
                     <div class="imagen-pago">
                         <img src="Sources/LogoPago.png" alt="">
                     </div>
-
-                </div> 
-
-            </section> -->
+                </div>
+            </section>
 
             <section class="products">
                 <?php
