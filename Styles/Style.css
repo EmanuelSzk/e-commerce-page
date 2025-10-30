@@ -822,4 +822,8 @@ footer {
     font-size: 15px;
   }
 
+  .bio img {
+    width: 70vw;
+  }
+
 }
