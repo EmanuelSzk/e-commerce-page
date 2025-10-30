@@ -440,13 +440,6 @@ main {
   clip-path: circle(42% at 50% 50%);
 }
 
-.fondo {
-  margin-top: 40px;
-  background-color: #ff65d9;
-  height: 800px;
-  position: relative;
-}
-
 .centrar2 {
   display: flex;
   justify-content: center;
@@ -534,6 +527,12 @@ footer {
   gap: 30px;
 }
 
+.centrar2 img {
+  border-radius: 20px;
+  width: 500px;
+  height: 400px;
+}
+
 .contact-form input {
   height: 50px;
   width: 500px;
@@ -583,9 +582,6 @@ footer {
   }
 }
 
-/* Para carrito */
-@media (max-width:1400px) {}
-
 @media (max-width:1235px) {
   .hero-section {
     height: 42vw;
@@ -612,9 +608,40 @@ footer {
     font-size: 20px;
   }
 
+  /* Formulario */
+  .contact-form {
+  display: flex;
+  flex-direction: column;
 }
 
-/* @media (max-width: 1024px) {} */
+.centrar2 img {
+  display: none;
+}
+
+.contact-form input {
+  height: 50px;
+  width: 50vw;
+  font-size: 20px;
+}
+
+}
+
+@media (max-width: 1024px) {
+  .bio {
+    flex-direction:column;
+  }
+
+  .bio p {
+    max-width: 350px;
+    margin-right: 20px;
+  }
+
+  .bio img {
+    width: 500px;
+    clip-path: circle(42% at 50% 50%);
+  }
+
+}
 
 /* Carrito */
 @media (max-width: 768px) {
@@ -752,6 +779,7 @@ footer {
   .welcome {
     font-size: 10vw;
   }
+
   /* Productos */
   .products {
     grid-template-columns: repeat(auto-fit, minmax(150px, 150px));

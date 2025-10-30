@@ -11,7 +11,7 @@ include 'php/conexion.php';
     <meta charset="UTF-8">
     <title>E-commerce de Postres</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Styles/Style.css?v=1.2s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
+    <link rel="stylesheet" href="Styles/Style.css?v=1.3s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Poppins:wght@600;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -165,7 +165,7 @@ include 'php/conexion.php';
             </section>
 
             <!--About me-->
-            <!-- <section class="about-me" id="about-me">
+            <section class="about-me" id="about-me">
                 <h2 class="h2">About me</h2>
                 <article class="bio">
                     <div>
@@ -179,7 +179,7 @@ include 'php/conexion.php';
                     </div>
                     <img src="Sources/Perfil.jpg">
                 </article>
-            </section> -->
+            </section> 
 
             <!-- <section class="Blog" id="Blog">
                 <div class="fondo">
@@ -191,10 +191,9 @@ include 'php/conexion.php';
             </section> -->
 
             <!--Contact me-->
-            <!-- <section class="Contact me" id="Contact">
+            <section class="Contact me" id="Contact">
                 <h2 class="h2">Contact me</h2>
                 <div class="centrar2">
-                    <img src="Sources/contact-me.jpg" style="border-radius: 20px;">
                     <form class="contact-form">
                         <input type="text" placeholder="Your name">
                         <input type="email" placeholder="Your email">
@@ -202,8 +201,9 @@ include 'php/conexion.php';
                         <input type="text" placeholder="Message...">
                         <button>Send Message</button>
                     </form>
+                    <img src="Sources/contact-me.jpg" style="border-radius: 20px;">
                 </div>
-            </section> -->
+            </section>
 
         </main>
 
