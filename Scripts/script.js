@@ -3,7 +3,7 @@ var carritoVisible = false;
 
 //Esperamos que todos los elementos de la página se carguen para continuar con el script
 if (document.readyState == 'loading') {
-    document.addEventListener('DOMContentLoaded', ready)
+    document.addEventListener('DOMContentLoaded', ready())
 } else {
     ready();
 }

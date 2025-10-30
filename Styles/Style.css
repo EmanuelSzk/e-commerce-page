@@ -50,6 +50,10 @@ header {
   z-index: 2;
 }
 
+.background-over-header {
+  background-color: #464646;
+}
+
 .over-header {
   display: flex;
   justify-content: space-evenly;
@@ -59,6 +63,13 @@ header {
   color: white;
   padding: 10px 5px;
   font-size: 15px;
+  max-width: 2000px;
+  margin: 0 auto;
+}
+
+.background-header-nav {
+  background: #ffcbf5;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
 }
 
 .header-nav {
@@ -66,8 +77,8 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px 10px;
-  background: #ffcbf5;
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
+  max-width: 2000px;
+  margin: 0 auto;
 }
 
 .logo {
@@ -114,15 +125,20 @@ main {
 
 /* Hero section */
 
-.hero-section {
+.background-hero-section {
   background-color: #fbdee2;
-  background: linear-gradient(220deg, #fee5f9 50%, #ffa1eb 100%);
+  background: linear-gradient(180deg, #fee5f9 50%, #ffa1eb 100%);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
+}
+
+.hero-section {
   height: 500px;
   display: flex;
   justify-content: space-between;
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
   line-height: 0.1;
   position: relative;
+  max-width: 2000px;
+  margin: 0 auto;
 }
 
 .prueba img {
@@ -142,7 +158,8 @@ main {
   position: absolute;
   width: 600px;
   bottom: 0;
-  left: 50vw;
+  margin: 0 auto;
+  left: 50%;
   transform: translateX(-50%);
   z-index: 1;
 }
@@ -153,7 +170,7 @@ main {
 }
 
 .info {
-  margin-left: 12vw;
+  margin-left: 200px;
   z-index: 2;
 }
 
@@ -171,8 +188,8 @@ main {
   font-weight: 400;
   line-height: 1.1;
   max-width: 40rem;
-  margin-bottom: 2vw;
-  margin-top: 3vw;
+  margin-bottom: 50px;
+  margin-top: 50px;
   font-family: 'calistoga';
   z-index: 2;
 }
@@ -575,11 +592,85 @@ footer {
   color: gray;
 }
 
+@media (min-width: 2000px) {
+  .carrito {
+  top: 0;
+  left: 50%;
+  transform: translateX(600px);
+}
+}
+
 /* Parte responsive */
 @media (max-width:1700px) {
-  .fruti img {
-    width: 35vw;
-  }
+
+  .background-hero-section {
+  background-color: #fbdee2;
+  background: linear-gradient(220deg, #fee5f9 50%, #ffa1eb 100%);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
+}
+
+.hero-section {
+  height: 500px;
+  display: flex;
+  justify-content: space-between;
+  line-height: 0.1;
+  position: relative;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.prueba img {
+  margin-right: 0;
+  height: 100%;
+  clip-path: circle(60% at 60% 50%);
+  z-index: 0;
+  right: 0;
+  position: absolute;
+}
+
+.fruti {
+  display: flex;
+}
+
+.fruti img {
+  position: absolute;
+  width: 35vw;
+  bottom: 0;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.info p {
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.info {
+  margin-left: 200px;
+  z-index: 2;
+}
+
+.welcome2 {
+  background: linear-gradient(225deg, #FF4C4C 50.5%, #464646 50.5%);
+  background-clip: text;
+  /* Estándar (soporte parcial) */
+  -webkit-background-clip: text;
+  /* Versión con prefijo, necesaria en WebKit/Safari */
+  color: transparent;
+  /* Estándar */
+  -webkit-text-fill-color: transparent;
+  /* Versión con prefijo, necesaria en WebKit/Safari */
+  font-size: 6rem;
+  font-weight: 400;
+  line-height: 1.1;
+  max-width: 40rem;
+  margin-bottom: 2vw;
+  margin-top: 3vw;
+  font-family: 'calistoga';
+  z-index: 2;
+}
 }
 
 @media (max-width:1235px) {
@@ -610,25 +701,25 @@ footer {
 
   /* Formulario */
   .contact-form {
-  display: flex;
-  flex-direction: column;
-}
+    display: flex;
+    flex-direction: column;
+  }
 
-.centrar2 img {
-  display: none;
-}
+  .centrar2 img {
+    display: none;
+  }
 
-.contact-form input {
-  height: 50px;
-  width: 50vw;
-  font-size: 20px;
-}
+  .contact-form input {
+    height: 50px;
+    width: 75vw;
+    font-size: 20px;
+  }
 
 }
 
 @media (max-width: 1024px) {
   .bio {
-    flex-direction:column;
+    flex-direction: column;
   }
 
   .bio p {
@@ -824,6 +915,10 @@ footer {
 
   .bio img {
     width: 70vw;
+  }
+
+  .bio p {
+    max-width: 75vw;
   }
 
 }
