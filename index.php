@@ -33,7 +33,7 @@ include 'php/conexion.php';
 <body>
     <div class="grid">
 
-        <!-- <header>
+        <header>
             <div class="over-header">
                 <span>
                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -74,7 +74,7 @@ include 'php/conexion.php';
 
             </nav>
 
-        </header> -->
+        </header> 
 
         <main>
             <div class="hero-section">
