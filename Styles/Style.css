@@ -87,7 +87,7 @@ header {
 
 .menu {
   display: flex;
-  gap: 1vw;
+  gap: 2vw;
   list-style: none;
   padding-left: 0;
 }
@@ -156,7 +156,7 @@ main {
 
 .fruti img {
   position: absolute;
-  width: 600px;
+  width: 550px;
   bottom: 0;
   margin: 0 auto;
   left: 50%;
@@ -184,10 +184,10 @@ main {
   /* Estándar */
   -webkit-text-fill-color: transparent;
   /* Versión con prefijo, necesaria en WebKit/Safari */
-  font-size: 6rem;
+  font-size: 6.5rem;
   font-weight: 400;
   line-height: 1.1;
-  max-width: 40rem;
+  max-width: 45rem;
   margin-bottom: 50px;
   margin-top: 50px;
   font-family: 'calistoga';
@@ -386,9 +386,6 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(220px, 220px));
   gap: 1rem;
   justify-content: center;
-  /* align-items: start;
-  display: flex;
-  justify-.content: center; */
 }
 
 .card {
@@ -439,6 +436,12 @@ main {
   margin-bottom: 12px;
   font-weight: 500;
   color: #444;
+}
+
+.boton-item {
+  margin: auto auto 2vw auto;
+  padding: 15px 20px;
+  font-size: 20px;
 }
 
 .bio {
@@ -593,110 +596,80 @@ footer {
 }
 
 @media (min-width: 2000px) {
+  .menu {
+    gap: 1vw;
+  }
+
   .carrito {
-  top: 0;
-  left: 50%;
-  transform: translateX(600px);
-}
+    top: 0;
+    left: 50%;
+    transform: translateX(550px);
+  }
 }
 
 /* Parte responsive */
 @media (max-width:1700px) {
 
-  .background-hero-section {
-  background-color: #fbdee2;
-  background: linear-gradient(220deg, #fee5f9 50%, #ffa1eb 100%);
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
-}
-
-.hero-section {
-  height: 500px;
-  display: flex;
-  justify-content: space-between;
-  line-height: 0.1;
-  position: relative;
-  max-width: 1800px;
-  margin: 0 auto;
-}
-
-.prueba img {
-  margin-right: 0;
-  height: 100%;
-  clip-path: circle(60% at 60% 50%);
-  z-index: 0;
-  right: 0;
-  position: absolute;
-}
-
-.fruti {
-  display: flex;
-}
-
-.fruti img {
-  position: absolute;
-  width: 35vw;
-  bottom: 0;
-  margin: 0 auto;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-}
-
-.info p {
-  margin-top: 0;
-  font-size: 1rem;
-}
-
-.info {
-  margin-left: 200px;
-  z-index: 2;
-}
-
-.welcome2 {
-  background: linear-gradient(225deg, #FF4C4C 50.5%, #464646 50.5%);
-  background-clip: text;
-  /* Estándar (soporte parcial) */
-  -webkit-background-clip: text;
-  /* Versión con prefijo, necesaria en WebKit/Safari */
-  color: transparent;
-  /* Estándar */
-  -webkit-text-fill-color: transparent;
-  /* Versión con prefijo, necesaria en WebKit/Safari */
-  font-size: 6rem;
-  font-weight: 400;
-  line-height: 1.1;
-  max-width: 40rem;
-  margin-bottom: 2vw;
-  margin-top: 3vw;
-  font-family: 'calistoga';
-  z-index: 2;
-}
-}
-
-@media (max-width:1235px) {
   .hero-section {
-    height: 42vw;
+    height: 27vw;
   }
 
-  .welcome2 {
-    font-size: 7.5vw;
-    max-width: 50vw;
+  .fruti img {
+    width: 30vw;
+  }
+
+  .info {
+    margin-left: 10vw;
   }
 
   .info p {
-    font-size: 2vw;
+    font-size: 0.8vw;
+  }
+
+  .welcome2 {
+    font-size: 6vw;
+    font-weight: 400;
+    line-height: 1.1;
+    max-width: 40vw;
+    margin-bottom: 1vw;
+    margin-top: 2vw;
+    font-family: 'calistoga';
+    z-index: 2;
+  }
+
+  .products {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
+  }
+
+  .card h3 {
+    font-size: 15px;
+  }
+
+  .card p {
+    font-size: 10px;
+  }
+
+  .img-container {
+    width: 120px;
+    height: 120px;
+  }
+
+  .boton-item {
+    font-size: 12px;
+  }
+
+}
+
+@media (max-width:1235px) {
+
+  .welcome2 {
+    margin-top: 4vw;
   }
 
   button {
     margin-top: 2vw;
-    padding: 2vw 2.5vw;
-    font-size: 2vw;
-  }
-
-  .boton-item {
-    margin-top: 20px;
-    padding: 15px 20px;
-    font-size: 20px;
+    padding: 1vw 1.5vw;
+    font-size: 1vw;
   }
 
   /* Formulario */
@@ -714,7 +687,6 @@ footer {
     width: 75vw;
     font-size: 20px;
   }
-
 }
 
 @media (max-width: 1024px) {
@@ -736,6 +708,26 @@ footer {
 
 /* Carrito */
 @media (max-width: 768px) {
+
+  .hero-section {
+    height: 42vw;
+  }
+
+  .fruti img {
+    width: 35vw;
+  }
+
+  .welcome2 {
+    font-size: 7.5vw;
+    max-width: 50vw;
+    margin-bottom: 3vw;
+  }
+
+  .info p {
+    font-size: 1.5vw;
+    margin-bottom: 2vw;
+  }
+
   .carrito {
     width: 64vw;
     margin-top: 150px;
