@@ -658,6 +658,100 @@ footer {
     font-size: 12px;
   }
 
+    .carrito {
+    width: 25vw;
+    margin-top: 150px;
+    margin-right: 10px;
+  }
+
+  .header-carrito {
+    gap: 0.5rem;
+    padding: 5px 0;
+    border-radius: 20px 0px;
+    font-size: 1vw;
+  }
+
+  .header-carrito svg {
+    width: 2vw;
+  }
+
+  .carrito-item {
+    padding-bottom: 1rem;
+  }
+
+  .carrito-item img {
+    width: 5vw;
+    height: 5vw;
+    margin-top: 10px;
+  }
+
+  .carrito-item-detalles {
+    margin-top: 10px;
+    width: 15vw;
+    position: relative;
+  }
+
+  .carrito-item-titulo {
+    margin-bottom: 10px;
+    font-size: 1vw;
+  }
+
+  .selector-cantidad {
+    margin-right: 1.5vw;
+  }
+
+  .carrito-item-cantidad {
+    font-size: 1vw;
+    width: 2.5vw;
+    padding: 5px;
+  }
+
+  .selector-cantidad i {
+    font-size: 1vw;
+    width: 2vw;
+    height: 2vw;
+    line-height: 2vw;
+  }
+
+  .carrito-item-precio {
+    font-size: 1vw;
+    margin-bottom: 5px;
+  }
+
+  .btn-eliminar {
+    margin-top: 10px;
+    font-size: 1vw;
+    width: 2vw;
+    height: 2vw;
+    line-height: 2vw;
+  }
+
+  .carrito-total {
+    padding: 2vw;
+    border-radius: 20px 0px;
+  }
+
+  .fila {
+    font-size: 1vw;
+    margin-bottom: 10px;
+  }
+
+  .btn-pagar {
+    width: 100%;
+    border-radius: 5px;
+    font-size: 1vw;
+    padding: 1.5vw 1vw;
+  }
+
+  .imagen-pago {
+    left: -5vw;
+    bottom: -5vw;
+  }
+
+  .imagen-pago img {
+    width: 10vw;
+  }
+
 }
 
 @media (max-width:1235px) {
