@@ -274,6 +274,8 @@ main {
 }
 
 .selector-cantidad {
+  display: flex;
+  align-items: center;
   margin-right: 25px;
 }
 
@@ -605,6 +607,10 @@ footer {
     left: 50%;
     transform: translateX(550px);
   }
+
+  .boton-item {
+    margin: auto auto 5px auto;
+  }
 }
 
 /* Parte responsive */
@@ -658,7 +664,7 @@ footer {
     font-size: 12px;
   }
 
-    .carrito {
+  .carrito {
     width: 25vw;
     margin-top: 150px;
     margin-right: 10px;
