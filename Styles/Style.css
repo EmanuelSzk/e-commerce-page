@@ -547,7 +547,12 @@ footer {
 }
 
 .purchase-form {
-  margin-bottom: 450px;
+  margin-bottom: 150px;
+}
+
+.purchase-view {
+  display: flex;
+  justify-content: space-around;
 }
 
 /* Acá empieza el formulario de contacto */

@@ -8,6 +8,12 @@ if (document.readyState == 'loading') {
     ready();
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.queryselector(".purchase-items")) {
+        cargarProductos();
+    }
+});
+
 function ready() {
     //agregamos funcionalidad al boton eliminar del carrito    
     var botonesEliminarItem = document.getElementsByClassName('btn-eliminar');
@@ -204,5 +210,7 @@ function agregarItemAlCarrito(titulo, precio, imagenSrc) {
 }
 
 function pagarClicked(event) {
-    alert("Gracias por su compra");
+}
+
+function cargarProductos() { 
 }
