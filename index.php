@@ -11,7 +11,7 @@ include 'php/conexion.php';
     <meta charset="UTF-8">
     <title>E-commerce de Postres</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Styles/Style.css?v=1.7s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
+    <link rel="stylesheet" href="Styles/Style.css?v=2.2s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Poppins:wght@600;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,7 @@ include 'php/conexion.php';
                 </div>
             </div>
 
-            <div class="background-header-nav">
+            <div class="background-header-nav" id="home">
                 <nav class="header-nav">
 
                     <a href="index.html">
@@ -65,10 +65,10 @@ include 'php/conexion.php';
                     </a>
 
                     <ul class="menu">
-                        <li><a href="#">Home</a></li>
+                        <li><a href="#home">Home</a></li>
                         <li><a href="#shop">Shop</a></li>
                         <li><a href="#about-me">About</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="#Contact">Contact</a></li>
                     </ul>
 
                     <a id='carrito-icon'>
@@ -118,7 +118,7 @@ include 'php/conexion.php';
                     <div class="carrito-item">
                         <img src="Sources/cheesecake.jpg" width="80px" class="img-carrito">
                         <div class="carrito-item-detalles">
-                            <h3 class="carrito-item-titulo">Cheesecake de frutilla</h3>
+                            <h3 class="carrito-item-titulo">Cheescake de frutilla</h3>
                             <div style="display: flex;">
                                 <div class="selector-cantidad">
                                     <i class="fa-solid fa-minus restar-cantidad"></i>

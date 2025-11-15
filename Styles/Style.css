@@ -270,7 +270,6 @@ main {
 .carrito-item-titulo {
   font-weight: bold;
   margin-bottom: 10px;
-  text-transform: uppercase;
 }
 
 .selector-cantidad {
@@ -333,6 +332,17 @@ main {
 
 .btn-eliminar i {
   pointer-events: none;
+}
+
+/* */
+
+.see-more {
+  background-color:  #f3f3f3;
+  padding: 30px;
+  margin: 5px 0;
+  border-radius: 20px 0px;
+  position: relative;
+  font-size: 4vw;
 }
 
 /* */
@@ -610,7 +620,7 @@ footer {
 
   .boton-item {
     margin: auto auto 5px auto;
-  }     
+  }
 }
 
 /* Parte responsive */
@@ -644,7 +654,7 @@ footer {
   }
 
   .products {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
+    grid-template-columns: repeat(auto-fit, minmax(175px, 175px));
   }
 
   .card h3 {
