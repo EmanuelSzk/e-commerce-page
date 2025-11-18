@@ -36,10 +36,10 @@ button {
   transition: transform 0.2s, background 0.3s;
 }
 
-/* button:hover {
+button:hover {
   background-color: rgb(235, 80, 200);
   transform: translateY(-2px) scale(1.1);
-} */
+} 
 
 /* Partes del grid */
 
@@ -378,7 +378,9 @@ main {
 }
 
 .btn-pagar:hover {
-  transform: scale(1.1);
+  background-color: rgb(234, 14, 14);
+  transform: translateY(-2px) scale(1.1);
+
 }
 
 .imagen-pago {
@@ -454,6 +456,12 @@ main {
   margin: auto auto 2vw auto;
   padding: 15px 20px;
   font-size: 20px;
+}
+
+.ver-productos {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }
 
 .bio {
@@ -603,7 +611,6 @@ footer {
 
 .Rellenar:focus {
   outline: 2px solid #ff65d9;
-  box-shadow: 0 0 0 2vw #fee5f9;
 }
 
 .Rellenar option {

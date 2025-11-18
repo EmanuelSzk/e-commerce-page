@@ -110,7 +110,7 @@ include 'php/conexion.php';
                 </div>
             </div>
 
-            <h2 class="pre-tittle" id="shop">Most popular</h2>
+            <h2 class="pre-tittle" id="shop">!Welcome!</h2>
             <h2 class="welcome">¡Our Products!</h2>
 
             <section class="carrito" id="carrito">
@@ -158,8 +158,6 @@ include 'php/conexion.php';
                     echo "<p>No hay productos disponibles</p>";
                 }
                 ?>
-
-                <button class="boton-item" onclick="window.location.href='pages/products.php'">Todos los productos</button>'
 
             </section>
 

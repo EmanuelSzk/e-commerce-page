@@ -11,7 +11,7 @@ include 'php/conexion.php';
     <meta charset="UTF-8">
     <title>E-commerce de Postres</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Styles/Style.css?v=2.2s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
+    <link rel="stylesheet" href="Styles/Style.css?v=4.2s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Poppins:wght@600;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -140,7 +140,7 @@ include 'php/conexion.php';
             <section class="products" data-aos="fade-up">
                 <?php
 
-                $sql = "SELECT id, nombre, precio, imgURL FROM products";
+                $sql = "SELECT id, nombre, precio, imgURL FROM products WHERE id <= 4";
                 $resultado = $conection->query($sql);
 
                 if ($resultado->num_rows > 0) {
@@ -151,7 +151,7 @@ include 'php/conexion.php';
                         echo '  </div>';
                         echo '  <h3 class="nombre">' . $row['nombre'] . '</h3>';
                         echo '  <p class="precio">$' . $row['precio'] . '</p>';
-                        echo '  <button class="boton-item" data-id="'. $row['id'] .'">Agregar al carrito</button>';
+                        echo '  <button class="boton-item" data-id="' . $row['id'] . '">Agregar al carrito</button>';
                         echo '</div>';
                     }
                 } else {
@@ -159,10 +159,11 @@ include 'php/conexion.php';
                 }
                 ?>
 
-                <button class="boton-item" onclick="window.location.href='pages/products.php'">Todos los productos</button>'
-
             </section>
 
+            <div class="ver-productos">
+                <button class="boton-item" onclick="window.location.href='products.php'">Todos los productos</button>'
+            </div>
             <!--About me-->
             <section class="about-me" id="about-me">
                 <h2 class="h2">About me</h2>
@@ -179,15 +180,6 @@ include 'php/conexion.php';
                     <img src="Sources/Perfil.jpg">
                 </article>
             </section>
-
-            <!-- <section class="Blog" id="Blog">
-                <div class="fondo">
-                    <h2 style="color: white; text-align: center; padding-top: 60px; font-size: 50px;">Reseñas</h2>
-                    <div class="comentario-fondo">
-                        
-                    </div>
-                </div>
-            </section> -->
 
             <!--Contact me-->
             <section class="Contact me" id="Contact">
