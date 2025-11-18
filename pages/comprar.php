@@ -11,7 +11,7 @@ include '../php/conexion.php';
     <meta charset="UTF-8">
     <title>E-commerce de Postres</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Styles/Style.css?v=2.6s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
+    <link rel="stylesheet" href="../Styles/Style.css?v=6.1s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Poppins:wght@600;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,9 +90,7 @@ include '../php/conexion.php';
 
         <main>
             <div class="purchase-view">
-                <div class="purchase-items">
-                </div>
-                <form class="purchase-form" style="margin-top: 70px;">
+                <form class="purchase-form">
                     <div class="form-group">
                         <div>
                             <label class="dato" for="nombre">Nombre del Cliente: </label>
@@ -130,17 +128,33 @@ include '../php/conexion.php';
                         </select>
                     </div>
                     <div class="button">
-                        <button type="submit">Confirmar compra</button>
+                        <button type="button" class="btn-pagar">Confirmar compra</button>
                     </div>
                 </form>
+                <div class="productos-carrito">
+                    <div class="header-pago" id="header-pago">
+                        Tu resumen
+                    </div>
+                    <div class="purchase-items" id="purchase-items">
+                    </div>
+                    <div class="footer-pago">
+                        <div class="fila2">
+                            <strong>Precio final</strong>
+                            <span class="carrito-precio-total">
+                                $0,00
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </main>
-        <footer>
-            <p>&copy; 2025 Dulces Juliana | Todos los derechos reservados</p>
-        </footer>
+    </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Dulces Juliana | Todos los derechos reservados</p>
+    </footer>
     </div>
 
-    <script src="Scripts/script.js"></script>
+    <script src="../Scripts/script.js"></script>
 
 </body>
 

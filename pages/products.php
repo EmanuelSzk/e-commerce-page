@@ -163,47 +163,6 @@ include 'php/conexion.php';
 
             </section>
 
-            <!--About me-->
-            <section class="about-me" id="about-me">
-                <h2 class="h2">About me</h2>
-                <article class="bio">
-                    <div>
-                        <h3>Lorem Ipsum</h3>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos amet, omnis fuga
-                            accusamus nihil soluta explicabo reprehenderit in dolorem accusantium dolorum eligendi ab
-                            illum quibusdam et? Dolore explicabo tenetur expedita? Lorem ipsum dolor sit, amet
-                            consectetur adipisicing elit. Tempore asperiores dolore mollitia adipisci harum impedit nam
-                            magni! Numquam natus sint sapiente dolore magni officiis impedit quidem? Quis nam minus
-                            sequi?</p>
-                    </div>
-                    <img src="Sources/Perfil.jpg">
-                </article>
-            </section>
-
-            <!-- <section class="Blog" id="Blog">
-                <div class="fondo">
-                    <h2 style="color: white; text-align: center; padding-top: 60px; font-size: 50px;">Reseñas</h2>
-                    <div class="comentario-fondo">
-                        
-                    </div>
-                </div>
-            </section> -->
-
-            <!--Contact me-->
-            <section class="Contact me" id="Contact">
-                <h2 class="h2">Contact me</h2>
-                <div class="centrar2">
-                    <form class="contact-form">
-                        <input type="text" placeholder="Your name">
-                        <input type="email" placeholder="Your email">
-                        <input type="text" placeholder="Subject">
-                        <input type="text" placeholder="Message...">
-                        <button>Send Message</button>
-                    </form>
-                    <img src="Sources/contact-me.jpg" style="border-radius: 20px;">
-                </div>
-            </section>
-
         </main>
 
         <footer>
