@@ -1,7 +1,11 @@
+// Mantiene el carrito oculto
+var carritoVisible = false;
+
+//Esperamos que todos los elementos de la página se carguen para continuar con el script
 if (document.readyState == 'loading') {
-    document.addEventListener('DOMContentLoaded', mostrarProductos)
+    document.addEventListener('DOMContentLoaded', ready)
 } else {
-    mostrarProductos();
+    ready();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,65 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function IncluirCarrito(id, nombre, ruta, cantidad, precio) {
-    var item = document.createElement('div');
-    item.innerHTML = `
-                <div class="carrito-item" data-id="${id}">
-        <img src="${ruta}" width="80px" class="img-carrito">
-        <div class="carrito-item-detalles">
-            <h3 class="carrito-item-titulo">${nombre}</h3>
-            <div style="display: flex;">
-                <div class="selector-cantidad">
-                    <i class="fa-solid fa-minus restar-cantidad"></i>
-                    <input type="text" value="${cantidad}" class="carrito-item-cantidad">
-                    <i class="fa-solid fa-plus sumar-cantidad"></i>
-                </div>
-                <span class="carrito-item-precio">${precio}</span>
-            </div>
-        </div>
-        <span class="btn-eliminar">
-            <i class="fa-solid fa-trash boton-eliminar"></i>
-        </span>
-    </div>`;
-    let contenedor = document.getElementById('agregar-carrito');
-    contenedor.appendChild(item);
-
-
-    var totalElement = document.getElementsByClassName('carrito-precio-total')[0].innerText.replace(/[^0-9,.-]/g, '').replace(',', '.');
-    var totalNum = parseFloat(totalElement);
-    console.log("total es igual a: ", totalNum);
-    console.log("precio es igual a: ", parseFloat(precio));
-    console.log("cantidad es igual a: ", parseInt(cantidad));
-    var total = parseFloat(totalNum) + (parseFloat(precio) * parseInt(cantidad));
-    console.log("El total de la suma es: ", total);
-
-    document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
-
-    ready();
-}
-
-function mostrarProductos() {
-    fetch("pages/obtener_productos.php")
-        .then(res => res.json())
-        .then(data => {
-            console.log("Json entregado: ", data);
-
-            if (data.length) {
-                for (let i = 0; i < data.length; i++) {
-                    var id = data[i].id;
-                    var nombre = data[i].nombre;
-                    var ruta = data[i].imgURL;
-                    var cantidad = data[i].cantidad;
-                    var precio = data[i].precio;
-                    IncluirCarrito(id, nombre, ruta, cantidad, precio);
-                }
-            }
-        })
-    ready();
-}
-
 function ready() {
-
     //agregamos funcionalidad al boton eliminar del carrito    
     var botonesEliminarItem = document.getElementsByClassName('btn-eliminar');
     for (var i = 0; i < botonesEliminarItem.length; i++) {
@@ -93,15 +39,39 @@ function ready() {
         var button = botonesAgregarAlCarrito[i];
         button.addEventListener('click', agregarAlCarritoClicked);
     }
+    
+    const btnPagar = document.querySelector('.btn-pagar');
+    if (btnPagar) {
+        btnPagar.addEventListener('click', pagarClicked);
+    }
+
+    var CarritoLogo = document.getElementById('carrito-icon');
+    CarritoLogo.addEventListener('click', ocultarCarrito);
+
 }
 
 function eliminarItemCarrito(event) {
     var buttonClicked = event.target;
+    // Busca el contenedor .carrito-item más cercano y lo elimina
     var item = buttonClicked.closest('.carrito-item');
-    var idProduct = item.getAttribute('data-id');
-    // Me sale que le idProduct es undefined. (Solucionado - no había extraido id de la base de datos en obtener_productos.php)
-    console.log("El id product es: ", idProduct);
-    item.remove();
+    var idProduct = item.getAttribute("data-id");
+    if (item) item.remove();
+    // var carrito = document.getElementById('carrito');
+    var nombreItemCarrito = document.getElementsByClassName('carrito-item-titulo');
+    var check = document.getElementsByClassName('see-more');
+
+    if (nombreItemCarrito.length < 3 && check.length == 1) {
+        console.log('hay menos de tres elementos en carrito');
+        var item = document.getElementsByClassName('see-more')[0];
+        console.log('obtenemos see more');
+        item.remove();
+        console.log('removimos en teoria (?');
+        return;
+    }
+
+    console.log("enviando id de producto a eliminar", {
+        ID_Producto: idProduct,
+    });
 
     fetch("pages/borrar_item.php", {
         method: "POST",
@@ -116,13 +86,37 @@ function eliminarItemCarrito(event) {
         })
         .catch(err => console.error("Error"))
 
-    var totalElement = document.getElementsByClassName('carrito-precio-total')[0].innerText.replace(/[^0-9,.-]/g, '').replace(',', '.');
-    var totalNum = totalElement;
-    var precioItem = item.getElementsByClassName('carrito-item-precio')[0].innerText;
-    console.log("precio a sumar es", precioItem);
-    var cantidadItem = item.getElementsByClassName('carrito-item-cantidad')[0].value;
-    var total = parseFloat(totalNum) - (parseFloat(precioItem) * parseInt(cantidadItem));
+    //Actualizamos el total del carrito una vez eliminado el item
+    actualizarTotalCarrito();
+    ocultarCarrito();
+}
+
+function actualizarTotalCarrito() {
+    var carritoDeCompras = document.getElementsByClassName('carrito')[0];
+    var carritoItems = carritoDeCompras.getElementsByClassName('carrito-item');
+    var total = 0;
+
+    for (var i = 0; i < carritoItems.length; i++) {
+        //variable util dentro de la función
+        var item = carritoItems[i];
+        var precioItem = item.getElementsByClassName('carrito-item-precio')[0];
+        //sacamos signo peso y reemplazamos coma para poder hacer operaciones con los precios.
+        var precio = parseFloat(precioItem.innerText.replace('$', '').replace(',', '.'));
+        var cantidadItem = item.getElementsByClassName('carrito-item-cantidad')[0];
+        var cantidad = cantidadItem.value;
+        total = total + (precio * cantidad);
+    }
+    total = Math.round(total * 100) / 100;
     document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
+}
+
+function ocultarCarrito() {
+    var carritoItems = document.getElementsByClassName('carrito-item');
+    if (carritoItems.length == 0) {
+        var carrito = document.getElementsByClassName('carrito')[0];
+        carrito.style.opacity = '0';
+        carritoVisible = false;
+    }
 }
 
 function sumarCantidad(event) {
@@ -139,13 +133,6 @@ function sumarCantidad(event) {
     var carritoItem = buttonClicked.closest(".carrito-item");
     var idProduct = carritoItem.getAttribute("data-id");
 
-    var totalElement = document.getElementsByClassName('carrito-precio-total')[0].innerText.replace(/[^0-9,.-]/g, '').replace(',', '.');
-    var totalNum = totalElement;
-    var precioItem = carritoItem.getElementsByClassName('carrito-item-precio')[0].innerText;
-    console.log("precio a sumar es", precioItem);
-    var total = parseFloat(totalNum) + parseFloat(precioItem);
-    document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
-
     console.log("Enviando a PHP:", {
         id_product: idProduct,
         cantidad: cantidadActual
@@ -164,6 +151,9 @@ function sumarCantidad(event) {
             console.log("Respuesta RAW del PHP:", texto);
         })
         .catch(err => console.error("Error fetch:", err));
+
+    actualizarTotalCarrito();
+
 }
 
 function restarCantidad(event) {
@@ -179,19 +169,12 @@ function restarCantidad(event) {
     if (cantidadActual == 0) {
         eliminarItemCarrito(event);
     } else {
-        // actualizarTotalCarrito();
+        actualizarTotalCarrito();
     }
 
     // Obtener id del producto desde el <div class="item-carrito" data-id="">
     var carritoItem = buttonClicked.closest(".carrito-item");
     var idProduct = carritoItem.getAttribute("data-id");
-
-    var totalElement = document.getElementsByClassName('carrito-precio-total')[0].innerText.replace(/[^0-9,.-]/g, '').replace(',', '.');
-    var totalNum = totalElement;
-    var precioItem = carritoItem.getElementsByClassName('carrito-item-precio')[0].innerText;
-    console.log("precio a sumar es", precioItem);
-    var total = parseFloat(totalNum) - parseFloat(precioItem);
-    document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
 
     console.log("Enviando a PHP:", {
         id_product: idProduct,
@@ -211,18 +194,20 @@ function restarCantidad(event) {
             console.log("Respuesta RAW del PHP:", texto);
         })
         .catch(err => console.error("Error fetch:", err));
+
+    actualizarTotalCarrito();
 }
 
 function agregarAlCarritoClicked(event) {
-    // event es un objeto que pasamos como atributo que contiene información del sobre el "click", como puede ser: en qué elemento hice click.
-    // Lo que hace target es que selecciona el ELEMENTO exacto sobre el que hiciste el click, es decir, extrae esa información del event.
     var button = event.target;
-    // parentElement = el elemento que envuelve al botón, o sea, el “padre” en el HTML, es decir, estoy seleccionando "<div class="card">"
-    var item = button.parentElement; // No lo usé, pero sirve dejarlo por la teoría.
+    var item = button.parentElement;
 
-    // Y acá viene el problema, porque antes extraía la información del HTML que me pasaba el objeto "event". Lo debo extraer de la base de datos. O no necesariamente, sencillamente extraigo la info del html, para esa info ponerla (ojalá) en la base de datos y de ahí imprimo lo extraido de la base de datos y no del HTML.
     var idProduct = button.dataset.id;
+    var titulo = item.getElementsByClassName('nombre')[0].innerText;
+    var precio = item.getElementsByClassName('precio')[0].innerText;
+    var imagenSrc = item.getElementsByClassName('img-item')[0].src;
     agregarItemBD(idProduct);
+    agregarItemAlCarrito(idProduct, titulo, precio, imagenSrc);
 }
 
 function agregarItemBD(idProduct) {
@@ -233,30 +218,99 @@ function agregarItemBD(idProduct) {
         },
         body: "id_product=" + encodeURIComponent(idProduct)
     })
-        .then(res => res.json())
+        .then(res => res.text())
         .then(res => {
-            if (res.success && res.producto) {
-                mostrarCambios(res.producto);
-            } else {
-                console.error("error en la respuesta", res);
+            console.log("Respuesta del servidor:", res);
+        })
+        .catch(err => console.error("Error:", err));
+}
+
+function agregarItemAlCarrito(idProduct, titulo, precio, imagenSrc) {
+    var carrito = document.getElementById('carrito');
+    var item = document.createElement('div');
+
+    // Verifica si el producto ya está en el carrito
+    var nombreItemCarrito = carrito.getElementsByClassName('carrito-item-titulo');
+    var check = document.getElementsByClassName('see-more');
+
+    if (nombreItemCarrito.length == 3 && check.length == 0) {
+        console.log('check vale 0');
+        var item = document.createElement('div');
+        console.log("If alcanzado");
+        item.innerHTML = `
+        <div class="see-more">
+        </div>`;
+        var carrito = document.getElementById('agregar-carrito');
+        carrito.appendChild(item);
+        return;
+    }
+
+    if (nombreItemCarrito.length == 3 && check.length == 1) {
+        return;
+    }
+
+    for (var i = 0; i < nombreItemCarrito.length; i++) {
+        console.log("estos son los elementos del carro: ", [i], "Item:", nombreItemCarrito[i]);
+        console.log("este es el titulo", titulo);
+        var tituloActual = nombreItemCarrito[i].innerText;
+        console.log("se realizó la comparación de ", tituloActual, " con ", titulo);
+        if (tituloActual == titulo) {
+            alert("Ya está ese item en el carrito");
+            return;
+        }
+    }
+
+    fetch("pages/obtener_productos.php")
+        .then(res => res.json())
+        .then(data => {
+
+            if (data.length) {
+                for (let i = 0; i < data.length; i++) {
+                    var item = document.createElement('div');
+                    item.innerHTML = `
+    <div class="carrito-item" data-id="${idProduct}">
+        <img src="${data[i].rutaImagen}" width="80px" class="img-carrito">
+        <div class="carrito-item-detalles">
+            <h3 class="carrito-item-titulo">${data[i].nombre}</h3>
+            <div style="display: flex;">
+                <div class="selector-cantidad">
+                    <i class="fa-solid fa-minus restar-cantidad"></i>
+                    <input type="text" value="${data[i].cantidad}" class="carrito-item-cantidad">
+                    <i class="fa-solid fa-plus sumar-cantidad"></i>
+                </div>
+                <span class="carrito-item-precio">${data[i].precio}</span>
+            </div>
+        </div>
+        <span class="btn-eliminar">
+            <i class="fa-solid fa-trash boton-eliminar"></i>
+        </span>
+    </div>`;
+                    var carrito = document.getElementById('agregar-carrito');
+                    carrito.appendChild(item);
+                }
             }
         })
 
+
+    var carritoItems = document.getElementsByClassName('carrito-item');
+    if (carritoItems.length == 1) {
+        var carrito = document.getElementsByClassName('carrito')[0];
+        carrito.style.opacity = '100';
+        carritoVisible = true;
+    }
+
+    item.getElementsByClassName('btn-eliminar')[0].addEventListener('click', eliminarItemCarrito);
+
+    var botonesSumarCantidad = item.getElementsByClassName('sumar-cantidad')[0];
+    botonesSumarCantidad.addEventListener('click', sumarCantidad);
+
+    var botonesRestarCantidad = item.getElementsByClassName('restar-cantidad')[0];
+    botonesRestarCantidad.addEventListener('click', restarCantidad);
+
+    actualizarTotalCarrito();
 }
 
-function mostrarCambios(producto) {
-    const contenedor = document.getElementById('agregar-carrito');
-    const productoRepetido = contenedor.querySelector(`.carrito-item[data-id="${producto.id}"]`);
-    if (productoRepetido) {
-        alert("Ya está ese producto en el cashito pue");
-    } else {
-        var id = producto.id;
-        var nombre = producto.nombre;
-        var ruta = producto.imgURL;
-        var cantidad = 1;
-        var precio = producto.precio;
-        IncluirCarrito(id, nombre, ruta, cantidad, precio);
-    }
+function pagarClicked(event) {
 }
 
 function cargarProductos() {

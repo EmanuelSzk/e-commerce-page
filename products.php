@@ -137,6 +137,7 @@ include 'php/conexion.php';
                 </div>
             </section>
 
+            
             <section class="products" data-aos="fade-up">
                 <?php
 
