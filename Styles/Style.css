@@ -215,6 +215,12 @@ main {
 }
 
 /* carrito */
+
+#agregar-carrito {
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
 .carrito {
   background-color: white;
   border: 3px solid white;
@@ -552,6 +558,11 @@ footer {
 .centrar {
   display: flex;
   justify-content: center;
+}
+
+#purchase-items {
+  max-height: 40vh;
+  overflow-y: auto;
 }
 
 .purchase-view {

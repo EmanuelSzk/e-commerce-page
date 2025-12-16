@@ -226,37 +226,37 @@ function agregarAlCarritoClicked(event) {
 }
 
 function agregarItemBD(idProduct) {
-    fetch("pages/agregar_al_carrito.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: "id_product=" + encodeURIComponent(idProduct)
-    })
-        .then(res => res.json())
-        .then(res => {
-            if (res.success && res.producto) {
-                mostrarCambios(res.producto);
-            } else {
-                console.error("error en la respuesta", res);
-            }
+    const contenedor = document.getElementById('agregar-carrito');
+    const productoRepetido = contenedor.querySelector(`.carrito-item[data-id="${idProduct}"]`);
+    if (productoRepetido) {
+        alert("Ya está ese producto en el cashito pue");
+        return
+    } else {
+        fetch("pages/agregar_al_carrito.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "id_product=" + encodeURIComponent(idProduct)
         })
-
+            .then(res => res.json())
+            .then(res => {
+                if (res.success && res.producto) {
+                    mostrarCambios(res.producto);
+                } else {
+                    console.error("error en la respuesta", res);
+                }
+            })
+    }
 }
 
 function mostrarCambios(producto) {
-    const contenedor = document.getElementById('agregar-carrito');
-    const productoRepetido = contenedor.querySelector(`.carrito-item[data-id="${producto.id}"]`);
-    if (productoRepetido) {
-        alert("Ya está ese producto en el cashito pue");
-    } else {
-        var id = producto.id;
-        var nombre = producto.nombre;
-        var ruta = producto.imgURL;
-        var cantidad = 1;
-        var precio = producto.precio;
-        IncluirCarrito(id, nombre, ruta, cantidad, precio);
-    }
+    var id = producto.id;
+    var nombre = producto.nombre;
+    var ruta = producto.imgURL;
+    var cantidad = 1;
+    var precio = producto.precio;
+    IncluirCarrito(id, nombre, ruta, cantidad, precio);
 }
 
 function cargarProductos() {
