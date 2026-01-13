@@ -36,11 +36,7 @@ function IncluirCarrito(id, nombre, ruta, cantidad, precio) {
 
     var totalElement = document.getElementsByClassName('carrito-precio-total')[0].innerText.replace(/[^0-9,.-]/g, '').replace(',', '.');
     var totalNum = parseFloat(totalElement);
-    console.log("total es igual a: ", totalNum);
-    console.log("precio es igual a: ", parseFloat(precio));
-    console.log("cantidad es igual a: ", parseInt(cantidad));
     var total = parseFloat(totalNum) + (parseFloat(precio) * parseInt(cantidad));
-    console.log("El total de la suma es: ", total);
 
     document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
 
@@ -48,23 +44,41 @@ function IncluirCarrito(id, nombre, ruta, cantidad, precio) {
 }
 
 function mostrarProductos() {
-    fetch("pages/obtener_productos.php")
+
+    fetch("pages/carrito_usuario.php")
         .then(res => res.json())
         .then(data => {
-            console.log("Json entregado: ", data);
+            console.log('este es el id che: ' + data.id);
+            var id_usuario = data.id;
 
-            if (data.length) {
-                for (let i = 0; i < data.length; i++) {
-                    var id = data[i].id;
-                    var nombre = data[i].nombre;
-                    var ruta = data[i].imgURL;
-                    var cantidad = data[i].cantidad;
-                    var precio = data[i].precio;
-                    IncluirCarrito(id, nombre, ruta, cantidad, precio);
-                }
-            }
-        })
-    ready();
+
+            fetch("pages/obtener_productos.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `id_usuario=${id_usuario}`
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log("Json entregado: ", data);
+
+                    if (data.length) {
+                        for (let i = 0; i < data.length; i++) {
+                            var id = data[i].id;
+                            var nombre = data[i].nombre;
+                            var ruta = data[i].imgURL;
+                            var cantidad = data[i].cantidad;
+                            var precio = data[i].precio;
+                            IncluirCarrito(id, nombre, ruta, cantidad, precio);
+                        }
+                    }
+                })
+            ready();
+
+
+        });
+
 }
 
 function ready() {
@@ -222,10 +236,16 @@ function agregarAlCarritoClicked(event) {
 
     // Y acá viene el problema, porque antes extraía la información del HTML que me pasaba el objeto "event". Lo debo extraer de la base de datos. O no necesariamente, sencillamente extraigo la info del html, para esa info ponerla (ojalá) en la base de datos y de ahí imprimo lo extraido de la base de datos y no del HTML.
     var idProduct = button.dataset.id;
-    agregarItemBD(idProduct);
+    fetch("pages/carrito_usuario.php")
+        .then(res => res.json())
+        .then(data => {
+            let idCarrito = data.id;
+            console.log("paso por acá che");
+            agregarItemBD(idProduct, idCarrito);
+        });
 }
 
-function agregarItemBD(idProduct) {
+function agregarItemBD(idProduct, idCarrito) {
     const contenedor = document.getElementById('agregar-carrito');
     const productoRepetido = contenedor.querySelector(`.carrito-item[data-id="${idProduct}"]`);
     if (productoRepetido) {
@@ -237,7 +257,7 @@ function agregarItemBD(idProduct) {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            body: "id_product=" + encodeURIComponent(idProduct)
+            body: `id_product=${encodeURIComponent(idProduct)}&id_carrito=${encodeURIComponent(idCarrito)}`
         })
             .then(res => res.json())
             .then(res => {
@@ -260,20 +280,29 @@ function mostrarCambios(producto) {
 }
 
 function cargarProductos() {
-    fetch("obtener_productos.php")
+    fetch("carrito_usuario.php")
         .then(res => res.json())
         .then(data => {
+            console.log('este es el id che: ' + data.id);
+            var id_usuario = data.id;
 
-            console.log("Json entregado correctamente", data);
+            fetch("obtener_productos.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `id_usuario=${id_usuario}`
+            })
+                .then(res => res.json())
+                .then(data => {
 
-            const contenedor = document.getElementById("purchase-items");
-
-            var total = 0;
-
-            if (data.length) {
-                for (let i = 0; i < data.length; i++) {
-                    var rutaImagen = "../" + data[i].imgURL;
-                    contenedor.innerHTML += `
+                    console.log("Json entregado correctamente", data);
+                    const contenedor = document.getElementById("purchase-items");
+                    var total = 0;
+                    if (data.length) {
+                        for (let i = 0; i < data.length; i++) {
+                            var rutaImagen = "../" + data[i].imgURL;
+                            contenedor.innerHTML += `
         <div class="item-carrito">
             <div class="contenedorUno">
                 <img src="${rutaImagen}" class="img-item-pago">
@@ -283,25 +312,26 @@ function cargarProductos() {
                 <p>Cantidad: ${data[i].cantidad}, Precio Total: ${data[i].precio * data[i].cantidad}$</p>
             </div>
         </div>`;
-                    total += (data[i].precio * data[i].cantidad);
-                }
-                document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
-            } else {
-                var item = document.createElement('div');
-                item.innerHTML = `
+                            total += (data[i].precio * data[i].cantidad);
+                        }
+                        document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
+                    } else {
+                        var item = document.createElement('div');
+                        item.innerHTML = `
         <div class="no-products">
         No hay productos en el carrito
         </div>`;
-                var noProducts = document.getElementById('purchase-items');
-                noProducts.appendChild(item);
+                        var noProducts = document.getElementById('purchase-items');
+                        noProducts.appendChild(item);
+                    }
+                })
+            const btnPagar = document.querySelector(".btn-pagar");
+
+            if (btnPagar) {
+                btnPagar.addEventListener("click", confirmarCompra);
+
             }
         })
-    const btnPagar = document.querySelector(".btn-pagar");
-
-    if (btnPagar) {
-        btnPagar.addEventListener("click", confirmarCompra);
-
-    }
 }
 
 function confirmarCompra() {

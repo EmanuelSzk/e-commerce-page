@@ -1,0 +1,147 @@
+body {
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(145deg,
+            #ffe0ec,
+            #ff6fae,
+            #ff4d6d);
+    background-size: 300% 300%;
+    animation: gradientMove 10s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Segoe UI", sans-serif;
+    color: #FFFFFF;
+    flex-direction: column;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.card-box {
+    width: 100%;
+    max-width: 450px;
+    padding: 35px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
+    animation: fadeIn 0.6 ease;
+}
+
+h3 {
+    text-align: center;
+    font-weight: 800;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.form-label {
+    font-weight: 700 !important;
+    font-size: 15px !important;
+    color: #FFFFFF !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    margin-bottom: 6px;
+}
+
+.input-group-text {
+    background: rgba(255, 255, 255, 0.4) !important;
+    border: none;
+    color: #FFFFFF !important;
+    font-size: 18px;
+    padding: 10px 14px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.4) !important;
+    color: #FFFFFF !important;
+    border: none;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+}
+
+.form-control::placeholder {
+    color: #EEEEEE !important;
+    opacity: 1 !important;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.4) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+}
+
+.btn-main {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    background: linear-gradient(135deg,
+            #ff9a9e,
+            #ffb3c1,
+            #ff6f91);
+    border: none;
+    font-size: 17px;
+    font-weight: 700;
+    color: #FFFFFF;
+    transition: 0.3s ease;
+}
+
+.btn-main:hover {
+    background-position: right;
+    transform: translateY(-2px);
+    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.25);
+}
+
+p,
+a {
+    color: #FFFFFF;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 16px;
+    }
+
+    .card-box {
+        margin-top: 30px;
+        padding: 20px 18px;
+        border-radius: 16px;
+    }
+
+    h3 {
+        font-size: 22px;
+    }
+
+    .form-label {
+        font-size: 14px !important;
+    }
+
+    .input-group-text {
+        font-size: 16px;
+        padding: 8px 10px;
+    }
+
+    .btn-main {
+        font-size: 15px;
+        padding: 9px;
+    }
+
+}
+
+/* Me quedé en el minuto 31:50 */

@@ -121,10 +121,8 @@ include '../php/conexion.php';
                         </div>
                         <select class="Rellenar" id="pago" name="pago" required>
                             <option value="">Selecciona una opción</option>
-                            <option value="tarjeta">Tarjeta de Crédito/Débito</option>
                             <option value="efectivo">Efectivo</option>
-                            <option value="transferencia">Transferencia Bancaria</option>
-                            <option value="mercadopago">MercadoPago</option>
+                            <option value="mercadopago">Mercado Pago</option>
                         </select>
                     </div>
                     <div class="button">

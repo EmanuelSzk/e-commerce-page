@@ -7,12 +7,13 @@ if ($conection->connect_error) {
 }
 
 $idProduct = $_POST['id_product'];
+$idCarrito = $_POST['id_carrito'];
 
-$sql = "INSERT INTO carrito (id_product, cantidad) VALUES ($idProduct, 1)";
+$sql = "INSERT INTO carrito (id_product, cantidad, id_carrito) VALUES ($idProduct, 1, $idCarrito)";
 
 if ($conection->query($sql) === TRUE) {
 
-    $sqlproducto = "SELECT id, nombre, precio, imgURL FROM products WHERE id = $idProduct";
+    $sqlproducto = "SELECT id, nombre, precio, imgURL FROM productos WHERE id = $idProduct";
     $resultado = $conection->query($sqlproducto);
 
     if ($resultado && $resultado->num_rows > 0) {

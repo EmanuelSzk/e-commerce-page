@@ -76,6 +76,7 @@ include 'php/conexion.php';
                         <li><a href="#shop">Shop</a></li>
                         <li><a href="#about-me">About</a></li>
                         <li><a href="#Contact">Contact</a></li>
+                        <li><a href="login/login.php">Login</a></li>
                     </ul>
 
                     <a id='carrito-icon' href="pages/comprar.php">
@@ -141,7 +142,7 @@ include 'php/conexion.php';
             <section class="products" data-aos="fade-up">
                 <?php
 
-                $sql = "SELECT id, nombre, precio, imgURL FROM products";
+                $sql = "SELECT id, nombre, precio, imgURL FROM productos";
                 $resultado = $conection->query($sql);
 
                 if ($resultado->num_rows > 0) {
