@@ -603,14 +603,6 @@ footer {
 
 /* Acá empieza el formulario de compra */
 
-.form-group {
-  display: flex;
-}
-
-.form-group div {
-  width: 200px;
-}
-
 .Rellenar {
   color: gray;
   width: 500px;

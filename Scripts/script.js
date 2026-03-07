@@ -350,17 +350,5 @@ function confirmarCompra() {
     // 3) Confirmación visual
     if (!confirm("¿Confirmar compra?")) return;
 
-    // 4) Ejecutar el TRUNCATE por FETCH
-    fetch("vaciar_carrito.php", {
-        method: "POST",
-    })
-        .then(res => res.text())
-        .then(res => {
-            console.log("Respuesta del servidor:", res);
-
-            alert("Compra confirmada. Gracias por tu compra!");
-
-            actualizarTotalCarrito();
-        })
-        .catch(err => console.error("Error:", err));
+    alert("Pedido enviado. Gracias por tu compra!");
 }

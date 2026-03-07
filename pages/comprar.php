@@ -39,6 +39,9 @@ include '../php/conexion.php';
 <!-- https://cssunitconverter.vercel.app/px-to-vw -->
 
 <body>
+
+    <?php session_start(); ?>
+
     <div class="grid">
 
         <header>
@@ -89,47 +92,38 @@ include '../php/conexion.php';
         </header>
 
         <main>
+
             <div class="purchase-view">
-                <form class="purchase-form">
-                    <div class="form-group">
-                        <div>
-                            <label class="dato" for="nombre">Nombre del Cliente: </label>
-                        </div>
-                        <input class="Rellenar" type="text" id="nombre" name="nombre" required>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <label for="direccion">Dirección: </label>
-                        </div>
-                        <input class="Rellenar" type="text" id="direccion" name="direccion" required>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <label for="telefono">Teléfono: </label>
-                        </div>
-                        <input class="Rellenar" type="tel" id="telefono" name="telefono" required>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <label for="email">E-mail: </label>
-                        </div>
-                        <input class="Rellenar" type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <label for="pago">Medio de Pago: </label>
-                        </div>
-                        <select class="Rellenar" id="pago" name="pago" required>
-                            <option value="">Selecciona una opción</option>
-                            <option value="efectivo">Efectivo</option>
-                            <option value="mercadopago">Mercado Pago</option>
-                        </select>
-                    </div>
-                    <div class="button">
-                        <button type="button" class="btn-pagar">Confirmar compra</button>
-                    </div>
+                <!--clases a borrar en styles: form-group-->
+                <form class="purchase-form" method="POST" action="../CRUD/send_email.php" style="display: flex; flex-direction: column">
+
+                    <input type="hidden" id="id" name="id" value="<?= $_SESSION['user_id'] ?>">
+
+                    <label class="dato" for="nombre">Nombre del Cliente: </label>
+                    <input class="Rellenar" type="text" id="nombre" name="nombre" required>
+
+                    <label for="direccion">Dirección: </label>
+                    <input class="Rellenar" type="text" id="direccion" name="direccion" required>
+
+                    <label for="telefono">Teléfono: </label>
+                    <input class="Rellenar" type="tel" id="telefono" name="telefono" required>
+
+                    <label for="email">E-mail: </label>
+                    <input class="Rellenar" type="email" id="email" name="email" required>
+
+                    <label for="pago">Medio de Pago: </label>
+                    <select class="Rellenar" id="pago" name="pago" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="mercadopago">Mercado Pago</option>
+                    </select>
+
+                    <button type="submit" class="btn-pagar">Confirmar compra</button>
+
                 </form>
+
                 <div class="productos-carrito">
+
                     <div class="header-pago" id="header-pago">
                         Tu resumen
                     </div>
@@ -143,10 +137,11 @@ include '../php/conexion.php';
                             </span>
                         </div>
                     </div>
+
                 </div>
             </div>
+        </main>
     </div>
-    </main>
     <footer>
         <p>&copy; 2025 Dulces Juliana | Todos los derechos reservados</p>
     </footer>
