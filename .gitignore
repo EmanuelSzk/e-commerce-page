@@ -4,7 +4,9 @@ composer.lock
 
 # Environment variables
 .env
-.env.local
+
+# Agent files
+CLAUDE.md
 
 # OS
 .DS_Store
