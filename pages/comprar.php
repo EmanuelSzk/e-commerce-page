@@ -149,6 +149,23 @@ include '../php/conexion.php';
 
     <script src="../Scripts/script.js"></script>
 
+    <script>
+        // Manejar el envío del formulario para Mercado Pago
+        const purchaseForm = document.querySelector('.purchase-form');
+        
+        purchaseForm.addEventListener('submit', function(e) {
+            const pagoMethod = document.getElementById('pago').value;
+            
+            if (pagoMethod === 'mercadopago') {
+                // Cambiar el action del form a preparar_mercadopago.php
+                this.action = 'preparar_mercadopago.php';
+            } else if (pagoMethod === 'efectivo') {
+                // Mantener el action original para efectivo
+                this.action = '../CRUD/send_email.php';
+            }
+        });
+    </script>
+
 </body>
 
 </html>

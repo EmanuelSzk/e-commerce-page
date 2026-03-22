@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include '../php/conexion.php';
 
 //Import PHPMailer classes into the global namespace
@@ -10,12 +12,13 @@ use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php';
 
-$id = $_POST['id'];
-$nombre = $_POST['nombre'];
-$direccion = $_POST['direccion'];
-$telefono = $_POST['telefono'];
-$email = $_POST['email'];
-$pago = $_POST['pago'];
+// Obtener datos de sesión (si viene de Mercado Pago) o de POST (si viene de efectivo)
+$id = isset($_SESSION['compra_id']) ? $_SESSION['compra_id'] : $_POST['id'];
+$nombre = isset($_SESSION['compra_nombre']) ? $_SESSION['compra_nombre'] : $_POST['nombre'];
+$direccion = isset($_SESSION['compra_direccion']) ? $_SESSION['compra_direccion'] : $_POST['direccion'];
+$telefono = isset($_SESSION['compra_telefono']) ? $_SESSION['compra_telefono'] : $_POST['telefono'];
+$email = isset($_SESSION['compra_email']) ? $_SESSION['compra_email'] : $_POST['email'];
+$pago = isset($_SESSION['compra_pago']) ? $_SESSION['compra_pago'] : $_POST['pago'];
 
 $sql = "SELECT p.id, p.nombre, p.precio, p.imgURL, c.cantidad, cu.id_usuario FROM carrito c JOIN productos p ON c.id_product = p.id JOIN carritos_users cu ON c.id_Carrito = cu.id WHERE cu.id_usuario = (?)";
 $stmt = $conection->prepare($sql);
@@ -114,6 +117,16 @@ try {
     $stmt = $conection->prepare($query);
     $stmt->bind_param("i", $id);
     $stmt->execute();
+
+    // Limpiar variables de sesión de la compra
+    unset($_SESSION['compra_id']);
+    unset($_SESSION['compra_nombre']);
+    unset($_SESSION['compra_direccion']);
+    unset($_SESSION['compra_telefono']);
+    unset($_SESSION['compra_email']);
+    unset($_SESSION['compra_pago']);
+    unset($_SESSION['preference_id']);
+    unset($_SESSION['init_point']);
 
     echo 'Message has been sent';
 } catch (Exception $e) {

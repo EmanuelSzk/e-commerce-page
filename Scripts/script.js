@@ -1,18 +1,18 @@
-if (document.readyState == 'loading') {
-    document.addEventListener('DOMContentLoaded', mostrarProductos)
+if (document.readyState == "loading") {
+  document.addEventListener("DOMContentLoaded", mostrarProductos);
 } else {
-    mostrarProductos();
+  mostrarProductos();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    if (document.querySelector(".purchase-items")) {
-        cargarProductos();
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.querySelector(".purchase-items")) {
+    cargarProductos();
+  }
 });
 
 function IncluirCarrito(id, nombre, ruta, cantidad, precio) {
-    var item = document.createElement('div');
-    item.innerHTML = `
+  var item = document.createElement("div");
+  item.innerHTML = `
                 <div class="carrito-item" data-id="${id}">
         <img src="${ruta}" width="80px" class="img-carrito">
         <div class="carrito-item-detalles">
@@ -30,279 +30,298 @@ function IncluirCarrito(id, nombre, ruta, cantidad, precio) {
             <i class="fa-solid fa-trash boton-eliminar"></i>
         </span>
     </div>`;
-    let contenedor = document.getElementById('agregar-carrito');
-    contenedor.appendChild(item);
+  let contenedor = document.getElementById("agregar-carrito");
+  contenedor.appendChild(item);
 
+  var totalElement = document
+    .getElementsByClassName("carrito-precio-total")[0]
+    .innerText.replace(/[^0-9,.-]/g, "")
+    .replace(",", ".");
+  var totalNum = parseFloat(totalElement);
+  var total = parseFloat(totalNum) + parseFloat(precio) * parseInt(cantidad);
 
-    var totalElement = document.getElementsByClassName('carrito-precio-total')[0].innerText.replace(/[^0-9,.-]/g, '').replace(',', '.');
-    var totalNum = parseFloat(totalElement);
-    var total = parseFloat(totalNum) + (parseFloat(precio) * parseInt(cantidad));
+  document.getElementsByClassName("carrito-precio-total")[0].innerText =
+    "$" + total.toLocaleString("es") + ",00";
 
-    document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
-
-    ready();
+  ready();
 }
 
 function mostrarProductos() {
+  fetch("pages/carrito_usuario.php")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("este es el id che: " + data.id);
+      var id_usuario = data.id;
 
-    fetch("pages/carrito_usuario.php")
-        .then(res => res.json())
-        .then(data => {
-            console.log('este es el id che: ' + data.id);
-            var id_usuario = data.id;
+      fetch("pages/obtener_productos.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `id_usuario=${id_usuario}`,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Json entregado: ", data);
 
-
-            fetch("pages/obtener_productos.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: `id_usuario=${id_usuario}`
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log("Json entregado: ", data);
-
-                    if (data.length) {
-                        for (let i = 0; i < data.length; i++) {
-                            var id = data[i].id;
-                            var nombre = data[i].nombre;
-                            var ruta = data[i].imgURL;
-                            var cantidad = data[i].cantidad;
-                            var precio = data[i].precio;
-                            IncluirCarrito(id, nombre, ruta, cantidad, precio);
-                        }
-                    }
-                })
-            ready();
-
-
+          if (data.length) {
+            for (let i = 0; i < data.length; i++) {
+              var id = data[i].id;
+              var nombre = data[i].nombre;
+              var ruta = data[i].imgURL;
+              var cantidad = data[i].cantidad;
+              var precio = data[i].precio;
+              IncluirCarrito(id, nombre, ruta, cantidad, precio);
+            }
+          }
         });
-
+      ready();
+    });
 }
 
 function ready() {
+  //agregamos funcionalidad al boton eliminar del carrito
+  var botonesEliminarItem = document.getElementsByClassName("btn-eliminar");
+  for (var i = 0; i < botonesEliminarItem.length; i++) {
+    var button = botonesEliminarItem[i];
+    button.addEventListener("click", eliminarItemCarrito);
+  }
 
-    //agregamos funcionalidad al boton eliminar del carrito    
-    var botonesEliminarItem = document.getElementsByClassName('btn-eliminar');
-    for (var i = 0; i < botonesEliminarItem.length; i++) {
-        var button = botonesEliminarItem[i];
-        button.addEventListener('click', eliminarItemCarrito);
-    }
+  var botonesSumarItem = document.getElementsByClassName("sumar-cantidad");
+  for (var i = 0; i < botonesSumarItem.length; i++) {
+    var button = botonesSumarItem[i];
+    button.addEventListener("click", sumarCantidad);
+  }
 
-    var botonesSumarItem = document.getElementsByClassName('sumar-cantidad');
-    for (var i = 0; i < botonesSumarItem.length; i++) {
-        var button = botonesSumarItem[i];
-        button.addEventListener('click', sumarCantidad);
-    }
+  var botonesRestarItem = document.getElementsByClassName("restar-cantidad");
+  for (var i = 0; i < botonesRestarItem.length; i++) {
+    var button = botonesRestarItem[i];
+    button.addEventListener("click", restarCantidad);
+  }
 
-    var botonesRestarItem = document.getElementsByClassName('restar-cantidad');
-    for (var i = 0; i < botonesRestarItem.length; i++) {
-        var button = botonesRestarItem[i];
-        button.addEventListener('click', restarCantidad);
-    }
-
-    var botonesAgregarAlCarrito = document.getElementsByClassName('boton-item');
-    for (var i = 0; i < botonesAgregarAlCarrito.length; i++) {
-        var button = botonesAgregarAlCarrito[i];
-        button.addEventListener('click', agregarAlCarritoClicked);
-    }
+  var botonesAgregarAlCarrito = document.getElementsByClassName("boton-item");
+  for (var i = 0; i < botonesAgregarAlCarrito.length; i++) {
+    var button = botonesAgregarAlCarrito[i];
+    button.addEventListener("click", agregarAlCarritoClicked);
+  }
 }
 
 function eliminarItemCarrito(event) {
-    var buttonClicked = event.target;
-    var item = buttonClicked.closest('.carrito-item');
-    var idProduct = item.getAttribute('data-id');
-    // Me sale que le idProduct es undefined. (Solucionado - no había extraido id de la base de datos en obtener_productos.php)
-    console.log("El id product es: ", idProduct);
-    item.remove();
+  var buttonClicked = event.target;
+  var item = buttonClicked.closest(".carrito-item");
+  var idProduct = item.getAttribute("data-id");
+  // Me sale que le idProduct es undefined. (Solucionado - no había extraido id de la base de datos en obtener_productos.php)
+  console.log("El id product es: ", idProduct);
+  item.remove();
 
-    fetch("pages/borrar_item.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `id_product=${idProduct}`
+  fetch("pages/borrar_item.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `id_product=${idProduct}`,
+  })
+    .then((res) => res.text())
+    .then((texto) => {
+      console.log("Respuesta RAW del php:", texto);
     })
-        .then(res => res.text())
-        .then(texto => {
-            console.log("Respuesta RAW del php:", texto);
-        })
-        .catch(err => console.error("Error"))
+    .catch((err) => console.error("Error"));
 
-    var totalElement = document.getElementsByClassName('carrito-precio-total')[0].innerText.replace(/[^0-9,.-]/g, '').replace(',', '.');
-    var totalNum = totalElement;
-    var precioItem = item.getElementsByClassName('carrito-item-precio')[0].innerText;
-    console.log("precio a sumar es", precioItem);
-    var cantidadItem = item.getElementsByClassName('carrito-item-cantidad')[0].value;
-    var total = parseFloat(totalNum) - (parseFloat(precioItem) * parseInt(cantidadItem));
-    document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
+  var totalElement = document
+    .getElementsByClassName("carrito-precio-total")[0]
+    .innerText.replace(/[^0-9,.-]/g, "")
+    .replace(",", ".");
+  var totalNum = totalElement;
+  var precioItem = item.getElementsByClassName("carrito-item-precio")[0]
+    .innerText;
+  console.log("precio a sumar es", precioItem);
+  var cantidadItem = item.getElementsByClassName("carrito-item-cantidad")[0]
+    .value;
+  var total =
+    parseFloat(totalNum) - parseFloat(precioItem) * parseInt(cantidadItem);
+  document.getElementsByClassName("carrito-precio-total")[0].innerText =
+    "$" + total.toLocaleString("es") + ",00";
 }
 
 function sumarCantidad(event) {
-    var buttonClicked = event.target;
-    var selector = buttonClicked.parentElement;
+  var buttonClicked = event.target;
+  var selector = buttonClicked.parentElement;
 
-    var cantidadInput = selector.getElementsByClassName('carrito-item-cantidad')[0].value;
-    var cantidadActual = parseInt(cantidadInput);
-    cantidadActual++;
-    selector.getElementsByClassName('carrito-item-cantidad')[0].value = cantidadActual;
-    cantidadInput.value = cantidadActual;
+  var cantidadInput = selector.getElementsByClassName(
+    "carrito-item-cantidad",
+  )[0].value;
+  var cantidadActual = parseInt(cantidadInput);
+  cantidadActual++;
+  selector.getElementsByClassName("carrito-item-cantidad")[0].value =
+    cantidadActual;
+  cantidadInput.value = cantidadActual;
 
-    // Obtener id del producto desde el <div class="item-carrito" data-id="">
-    var carritoItem = buttonClicked.closest(".carrito-item");
-    var idProduct = carritoItem.getAttribute("data-id");
+  // Obtener id del producto desde el <div class="item-carrito" data-id="">
+  var carritoItem = buttonClicked.closest(".carrito-item");
+  var idProduct = carritoItem.getAttribute("data-id");
 
-    var totalElement = document.getElementsByClassName('carrito-precio-total')[0].innerText.replace(/[^0-9,.-]/g, '').replace(',', '.');
-    var totalNum = totalElement;
-    var precioItem = carritoItem.getElementsByClassName('carrito-item-precio')[0].innerText;
-    console.log("precio a sumar es", precioItem);
-    var total = parseFloat(totalNum) + parseFloat(precioItem);
-    document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
+  var totalElement = document
+    .getElementsByClassName("carrito-precio-total")[0]
+    .innerText.replace(/[^0-9,.-]/g, "")
+    .replace(",", ".");
+  var totalNum = totalElement;
+  var precioItem = carritoItem.getElementsByClassName("carrito-item-precio")[0]
+    .innerText;
+  console.log("precio a sumar es", precioItem);
+  var total = parseFloat(totalNum) + parseFloat(precioItem);
+  document.getElementsByClassName("carrito-precio-total")[0].innerText =
+    "$" + total.toLocaleString("es") + ",00";
 
-    console.log("Enviando a PHP:", {
-        id_product: idProduct,
-        cantidad: cantidadActual
-    });
+  console.log("Enviando a PHP:", {
+    id_product: idProduct,
+    cantidad: cantidadActual,
+  });
 
-    // Enviar actualización a la base de datos
-    fetch("pages/actualizar_cantidad.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `id_product=${idProduct}&cantidad=${cantidadActual}`
+  // Enviar actualización a la base de datos
+  fetch("pages/actualizar_cantidad.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `id_product=${idProduct}&cantidad=${cantidadActual}`,
+  })
+    .then((res) => res.text()) // <-- leer como texto para ver errores ocultos
+    .then((texto) => {
+      console.log("Respuesta RAW del PHP:", texto);
     })
-        .then(res => res.text()) // <-- leer como texto para ver errores ocultos
-        .then(texto => {
-            console.log("Respuesta RAW del PHP:", texto);
-        })
-        .catch(err => console.error("Error fetch:", err));
+    .catch((err) => console.error("Error fetch:", err));
 }
 
 function restarCantidad(event) {
-    var buttonClicked = event.target;
-    var selector = buttonClicked.parentElement;
+  var buttonClicked = event.target;
+  var selector = buttonClicked.parentElement;
 
-    var cantidadInput = selector.getElementsByClassName('carrito-item-cantidad')[0].value;
-    var cantidadActual = parseInt(cantidadInput);
-    cantidadActual--;
-    selector.getElementsByClassName('carrito-item-cantidad')[0].value = cantidadActual;
-    cantidadInput.value = cantidadActual;
+  var cantidadInput = selector.getElementsByClassName("carrito-item-cantidad",)[0].value;
+  var cantidadActual = parseInt(cantidadInput);
+  cantidadActual--;
+  selector.getElementsByClassName("carrito-item-cantidad")[0].value =
+    cantidadActual;
+  cantidadInput.value = cantidadActual;
 
-    if (cantidadActual == 0) {
-        eliminarItemCarrito(event);
-    } else {
-        // actualizarTotalCarrito();
-    }
+  if (cantidadActual == 0) {
+    eliminarItemCarrito(event);
+  } else {
+    // actualizarTotalCarrito();
+  }
 
-    // Obtener id del producto desde el <div class="item-carrito" data-id="">
-    var carritoItem = buttonClicked.closest(".carrito-item");
-    var idProduct = carritoItem.getAttribute("data-id");
+  // Obtener id del producto desde el <div class="item-carrito" data-id="">
+  var carritoItem = buttonClicked.closest(".carrito-item");
+  var idProduct = carritoItem.getAttribute("data-id");
 
-    var totalElement = document.getElementsByClassName('carrito-precio-total')[0].innerText.replace(/[^0-9,.-]/g, '').replace(',', '.');
-    var totalNum = totalElement;
-    var precioItem = carritoItem.getElementsByClassName('carrito-item-precio')[0].innerText;
-    console.log("precio a sumar es", precioItem);
-    var total = parseFloat(totalNum) - parseFloat(precioItem);
-    document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
+  var totalElement = document
+    .getElementsByClassName("carrito-precio-total")[0]
+    .innerText.replace(/[^0-9,.-]/g, "")
+    .replace(",", ".");
+  var totalNum = totalElement;
+  var precioItem = carritoItem.getElementsByClassName("carrito-item-precio")[0]
+    .innerText;
+  console.log("precio a sumar es", precioItem);
+  var total = parseFloat(totalNum) - parseFloat(precioItem);
+  document.getElementsByClassName("carrito-precio-total")[0].innerText =
+    "$" + total.toLocaleString("es") + ",00";
 
-    console.log("Enviando a PHP:", {
-        id_product: idProduct,
-        cantidad: cantidadActual
-    });
+  console.log("Enviando a PHP:", {
+    id_product: idProduct,
+    cantidad: cantidadActual,
+  });
 
-    // Enviar actualización a la base de datos
-    fetch("pages/actualizar_cantidad.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `id_product=${idProduct}&cantidad=${cantidadActual}`
+  // Enviar actualización a la base de datos
+  fetch("pages/actualizar_cantidad.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `id_product=${idProduct}&cantidad=${cantidadActual}`,
+  })
+    .then((res) => res.text()) // <-- leer como texto para ver errores ocultos
+    .then((texto) => {
+      console.log("Respuesta RAW del PHP:", texto);
     })
-        .then(res => res.text()) // <-- leer como texto para ver errores ocultos
-        .then(texto => {
-            console.log("Respuesta RAW del PHP:", texto);
-        })
-        .catch(err => console.error("Error fetch:", err));
+    .catch((err) => console.error("Error fetch:", err));
 }
 
 function agregarAlCarritoClicked(event) {
-    // event es un objeto que pasamos como atributo que contiene información del sobre el "click", como puede ser: en qué elemento hice click.
-    // Lo que hace target es que selecciona el ELEMENTO exacto sobre el que hiciste el click, es decir, extrae esa información del event.
-    var button = event.target;
-    // parentElement = el elemento que envuelve al botón, o sea, el “padre” en el HTML, es decir, estoy seleccionando "<div class="card">"
-    var item = button.parentElement; // No lo usé, pero sirve dejarlo por la teoría.
+  // event es un objeto que pasamos como atributo que contiene información del sobre el "click", como puede ser: en qué elemento hice click.
+  // Lo que hace target es que selecciona el ELEMENTO exacto sobre el que hiciste el click, es decir, extrae esa información del event.
+  var button = event.target;
+  // parentElement = el elemento que envuelve al botón, o sea, el “padre” en el HTML, es decir, estoy seleccionando "<div class="card">"
+  var item = button.parentElement; // No lo usé, pero sirve dejarlo por la teoría.
 
-    // Y acá viene el problema, porque antes extraía la información del HTML que me pasaba el objeto "event". Lo debo extraer de la base de datos. O no necesariamente, sencillamente extraigo la info del html, para esa info ponerla (ojalá) en la base de datos y de ahí imprimo lo extraido de la base de datos y no del HTML.
-    var idProduct = button.dataset.id;
-    fetch("pages/carrito_usuario.php")
-        .then(res => res.json())
-        .then(data => {
-            let idCarrito = data.id;
-            console.log("paso por acá che");
-            agregarItemBD(idProduct, idCarrito);
-        });
+  // Y acá viene el problema, porque antes extraía la información del HTML que me pasaba el objeto "event". Lo debo extraer de la base de datos. O no necesariamente, sencillamente extraigo la info del html, para esa info ponerla (ojalá) en la base de datos y de ahí imprimo lo extraido de la base de datos y no del HTML.
+  var idProduct = button.dataset.id;
+  fetch("pages/carrito_usuario.php")
+    .then((res) => res.json())
+    .then((data) => {
+      let idCarrito = data.id;
+      console.log("paso por acá che");
+      agregarItemBD(idProduct, idCarrito);
+    });
 }
 
 function agregarItemBD(idProduct, idCarrito) {
-    const contenedor = document.getElementById('agregar-carrito');
-    const productoRepetido = contenedor.querySelector(`.carrito-item[data-id="${idProduct}"]`);
-    if (productoRepetido) {
-        alert("Ya está ese producto en el cashito pue");
-        return
-    } else {
-        fetch("pages/agregar_al_carrito.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: `id_product=${encodeURIComponent(idProduct)}&id_carrito=${encodeURIComponent(idCarrito)}`
-        })
-            .then(res => res.json())
-            .then(res => {
-                if (res.success && res.producto) {
-                    mostrarCambios(res.producto);
-                } else {
-                    console.error("error en la respuesta", res);
-                }
-            })
-    }
+  const contenedor = document.getElementById("agregar-carrito");
+  const productoRepetido = contenedor.querySelector(
+    `.carrito-item[data-id="${idProduct}"]`,
+  );
+  if (productoRepetido) {
+    alert("Ya está ese producto en el cashito pue");
+    return;
+  } else {
+    fetch("pages/agregar_al_carrito.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `id_product=${encodeURIComponent(idProduct)}&id_carrito=${encodeURIComponent(idCarrito)}`,
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success && res.producto) {
+          mostrarCambios(res.producto);
+        } else {
+          console.error("error en la respuesta", res);
+        }
+      });
+  }
 }
 
 function mostrarCambios(producto) {
-    var id = producto.id;
-    var nombre = producto.nombre;
-    var ruta = producto.imgURL;
-    var cantidad = 1;
-    var precio = producto.precio;
-    IncluirCarrito(id, nombre, ruta, cantidad, precio);
+  var id = producto.id;
+  var nombre = producto.nombre;
+  var ruta = producto.imgURL;
+  var cantidad = 1;
+  var precio = producto.precio;
+  IncluirCarrito(id, nombre, ruta, cantidad, precio);
 }
 
 function cargarProductos() {
-    fetch("carrito_usuario.php")
-        .then(res => res.json())
-        .then(data => {
-            console.log('este es el id che: ' + data.id);
-            var id_usuario = data.id;
+  fetch("carrito_usuario.php")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("este es el id che: " + data.id);
+      var id_usuario = data.id;
 
-            fetch("obtener_productos.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: `id_usuario=${id_usuario}`
-            })
-                .then(res => res.json())
-                .then(data => {
-
-                    console.log("Json entregado correctamente", data);
-                    const contenedor = document.getElementById("purchase-items");
-                    var total = 0;
-                    if (data.length) {
-                        for (let i = 0; i < data.length; i++) {
-                            var rutaImagen = "../" + data[i].imgURL;
-                            contenedor.innerHTML += `
+      fetch("obtener_productos.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `id_usuario=${id_usuario}`,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Json entregado correctamente", data);
+          const contenedor = document.getElementById("purchase-items");
+          var total = 0;
+          if (data.length) {
+            for (let i = 0; i < data.length; i++) {
+              var rutaImagen = "../" + data[i].imgURL;
+              contenedor.innerHTML += `
         <div class="item-carrito">
             <div class="contenedorUno">
                 <img src="${rutaImagen}" class="img-item-pago">
@@ -312,43 +331,54 @@ function cargarProductos() {
                 <p>Cantidad: ${data[i].cantidad}, Precio Total: ${data[i].precio * data[i].cantidad}$</p>
             </div>
         </div>`;
-                            total += (data[i].precio * data[i].cantidad);
-                        }
-                        document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ',00';
-                    } else {
-                        var item = document.createElement('div');
-                        item.innerHTML = `
+              total += data[i].precio * data[i].cantidad;
+            }
+            document.getElementsByClassName(
+              "carrito-precio-total",
+            )[0].innerText = "$" + total.toLocaleString("es") + ",00";
+          } else {
+            var item = document.createElement("div");
+            item.innerHTML = `
         <div class="no-products">
         No hay productos en el carrito
         </div>`;
-                        var noProducts = document.getElementById('purchase-items');
-                        noProducts.appendChild(item);
-                    }
-                })
-            const btnPagar = document.querySelector(".btn-pagar");
+            var noProducts = document.getElementById("purchase-items");
+            noProducts.appendChild(item);
+          }
+        });
+      const btnPagar = document.querySelector(".btn-pagar");
+      const formulario = document.querySelector(".purchase-form");
 
-            if (btnPagar) {
-                btnPagar.addEventListener("click", confirmarCompra);
+      if (btnPagar) {
+        btnPagar.addEventListener("click", confirmarCompra);
+      }
 
-            }
-        })
+      if (formulario) {
+        formulario.addEventListener("submit", (e) => {
+          e.preventDefault(); // Evita envío automático del formulario
+        });
+      }
+    });
 }
 
 function confirmarCompra() {
+  let nombre = document.getElementById("nombre").value.trim();
+  let direccion = document.getElementById("direccion").value.trim();
+  let telefono = document.getElementById("telefono").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let pago = document.getElementById("pago").value;
 
-    let nombre = document.getElementById("nombre").value.trim();
-    let direccion = document.getElementById("direccion").value.trim();
-    let telefono = document.getElementById("telefono").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let pago = document.getElementById("pago").value;
+  if (!nombre || !direccion || !telefono || !email || !pago) {
+    alert("Completa todos los campos antes de confirmar la compra.");
+    return;
+  }
 
-    if (!nombre || !direccion || !telefono || !email || !pago) {
-        alert("Completa todos los campos antes de confirmar la compra.");
-        return;
-    }
-
-    // 3) Confirmación visual
+  if (pago == "mercadopago") {
+    window.location.href = "CobroMercadoPago.php";
+    return;
+  } else {
     if (!confirm("¿Confirmar compra?")) return;
-
-    alert("Pedido enviado. Gracias por tu compra!");
+    // Enviar formulario a send_email.php solo para efectivo
+    document.querySelector(".purchase-form").submit();
+  }
 }

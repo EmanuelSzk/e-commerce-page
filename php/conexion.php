@@ -7,7 +7,8 @@
 //$dbName = 'if0_40116669_ecommerce';
 
 // Pruebas locales
-$serverName = 'localhost';
+$serverName = '127.0.0.1:3307'; 
+// $serverName = 'localhost';
 $userName = 'root';
 $password = '';
 $dbName = 'ecommerce';
