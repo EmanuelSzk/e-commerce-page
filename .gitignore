@@ -4,11 +4,13 @@ composer.lock
 
 # Environment variables
 .env
-.env.local
 
 # OS
 .DS_Store
 Thumbs.db
+
+#CLAUDE 
+CLAUDE.md
 
 # IDE
 .vscode/
