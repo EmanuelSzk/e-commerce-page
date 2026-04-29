@@ -26,7 +26,7 @@ function ready () {
             body: `first-name=${nombre}&last-name=${apellido}&email=${email}&password=${password}`
         })
 
-        alert("Usuario creado correctamente");
+        alert("User created correctly!");
 
     });
 }

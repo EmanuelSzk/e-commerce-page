@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,40 +16,49 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
     <!-- Estilizado -->
-    <link rel="stylesheet" href="../Styles/Login.css?v=1.6s">
+    <link rel="stylesheet" href="../Styles/Login.css?v=1.7s">
 </head>
 
 <body>
 
-    <form class="card-box" id="login-form">
-
-        <h3>Iniciar Sesión</h3>
-
-        <div class="mb-3">
-            <label class="form-label">Correo Electrónico</label>
-            <div class="input-group">
-                <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
-                <input type="email" class="form-control" placeholder="tugatitosalvaje@gmail.com" id="email" required>
-            </div>
+    <?php if (isset($_SESSION['user_name'])): ?>
+        <div class="card-box">
+            <h3>Welcome, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</h3>
+            <p>You are already logged in.</p>
+            <div class="centrar"></div>
+            <a href="../pages/logout.php" class="btn-main" style="display:flex;justify-content: center">Log out</a>
         </div>
+    <?php else: ?>
+        <form class="card-box" id="login-form">
 
-        <div class="mb-3">
-            <label class="form-label">Contraseña</label>
-            <div class="input-group">
-                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-                <input type="password" class="form-control" placeholder="*********" id="password" required>
+            <h3>Login</h3>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                    <input type="email" class="form-control" placeholder="User123@gmail.com" id="email" required>
+                </div>
             </div>
-        </div>
 
-        <button type="submit" class="btn-main">Entrar</button>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                    <input type="password" class="form-control" placeholder="*********" id="password" required>
+                </div>
+            </div>
 
-    </form>
+            <button type="submit" class="btn-main">Sign in</button>
 
-    <p class="text-center mt-3" style="font-size: 14px;">
-        ¿no tienes cuenta? <a href="register.php">Registrate</a>
-    </p>
+        </form>
 
-    <script src="../Scripts/login.js"></script>
+        <p class="text-center mt-3" style="font-size: 14px;">
+            Don't you have an account? <a href="register.php">Sign up</a>
+        </p>
+
+        <script src="../Scripts/login.js"></script>
+    <?php endif; ?>
 
 </body>
 

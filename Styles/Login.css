@@ -87,6 +87,7 @@ h3 {
 
 .btn-main {
     margin-top: 15px;
+    text-decoration: none;
     width: 100%;
     padding: 12px;
     border-radius: 10px;
@@ -143,5 +144,3 @@ a {
     }
 
 }
-
-/* Me quedé en el minuto 31:50 */

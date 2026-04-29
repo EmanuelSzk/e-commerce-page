@@ -12,6 +12,8 @@ use PHPMailer\PHPMailer\Exception;
 
 require '../vendor/autoload.php';
 
+require_once '../config.php';
+
 // Obtener datos de sesión (si viene de Mercado Pago) o de POST (si viene de efectivo)
 $id = isset($_SESSION['compra_id']) ? $_SESSION['compra_id'] : $_POST['id'];
 $nombre = isset($_SESSION['compra_nombre']) ? $_SESSION['compra_nombre'] : $_POST['nombre'];
@@ -41,12 +43,12 @@ try {
     //Server settings $mail->"algo" accede a alguna propiedad del objeto $mail
     //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                    Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp.gmail.com';                       //Set the SMTP server to send through
+    $mail->Host       = SMTP_HOST;                       //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'szkabrij.emanuel@gmail.com';                     //SMTP username
-    $mail->Password   = 'porl utwl oqza gkek';                               //SMTP password (1) Activar verificación en dos pasos (en tu cuenta de Google) (2) Crear una contraseña de aplicación Tipo: Mail Dispositivo: Otro / PHP
+    $mail->Username   = SMTP_USER;                     //SMTP username
+    $mail->Password   = SMTP_PASSWORD;                               //SMTP password (1) Activar verificación en dos pasos (en tu cuenta de Google) (2) Crear una contraseña de aplicación Tipo: Mail Dispositivo: Otro / PHP
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
-    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    $mail->Port       = SMTP_PORT;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
     $mail->SMTPOptions = array(                         // solución a: SMTP Error: Could not connect to SMTP host.
         'ssl' => array(
             'verify_peer' => false,

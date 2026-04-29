@@ -1,14 +1,58 @@
-if (document.readyState == "loading") {
-  document.addEventListener("DOMContentLoaded", mostrarProductos);
-} else {
-  mostrarProductos();
-}
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.querySelector(".products")) {
+    mostrarProductos();
+  }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   if (document.querySelector(".purchase-items")) {
     cargarProductos();
   }
 });
+
+function MostrarCarrito() {
+  var carrito = document.getElementById("carrito");
+  if (carrito.style.display === "none") {
+    carrito.style.display = "block";
+  } else {
+    carrito.style.display = "none";
+  }
+}
+
+function OcultarCarritoSinSesión() {
+  carrito.style.opacity = "0";
+  carrito.style.pointerEvents = "none";
+}
+
+function OcultarCarrito() {
+  fetch("pages/carrito_usuario.php")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("este es el id che: " + data.id);
+      var id_usuario = data.id;
+
+      fetch("pages/obtener_productos.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `id_usuario=${id_usuario}`,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("El id es: ", id_usuario);
+          console.log("Json entregado: ", data);
+          var carrito = document.getElementById("carrito");
+          if (data.items && data.items.length) {
+            carrito.style.opacity = "1";
+            carrito.style.pointerEvents = "auto";
+          } else {
+            carrito.style.opacity = "0";
+            carrito.style.pointerEvents = "none";
+          }
+        });
+    });
+}
 
 function IncluirCarrito(id, nombre, ruta, cantidad, precio) {
   var item = document.createElement("div");
@@ -62,17 +106,23 @@ function mostrarProductos() {
       })
         .then((res) => res.json())
         .then((data) => {
+          console.log("El id es: ", id_usuario);
           console.log("Json entregado: ", data);
-
-          if (data.length) {
-            for (let i = 0; i < data.length; i++) {
-              var id = data[i].id;
-              var nombre = data[i].nombre;
-              var ruta = data[i].imgURL;
-              var cantidad = data[i].cantidad;
-              var precio = data[i].precio;
+          var carrito = document.getElementById("carrito");
+          if (data.items && data.items.length) {
+            carrito.style.opacity = "1";
+            carrito.style.pointerEvents = "auto";
+            for (let i = 0; i < data.items.length; i++) {
+              var id = data.items[i].id;
+              var nombre = data.items[i].nombre;
+              var ruta = data.items[i].imgURL;
+              var cantidad = data.items[i].cantidad;
+              var precio = data.items[i].precio;
               IncluirCarrito(id, nombre, ruta, cantidad, precio);
             }
+          } else {
+            carrito.style.opacity = "0";
+            carrito.style.pointerEvents = "none";
           }
         });
       ready();
@@ -104,6 +154,9 @@ function ready() {
     var button = botonesAgregarAlCarrito[i];
     button.addEventListener("click", agregarAlCarritoClicked);
   }
+
+  var botonVerCarrito = document.getElementById("botonVerCarrito");
+  botonVerCarrito.addEventListener("click", MostrarCarrito);
 }
 
 function eliminarItemCarrito(event) {
@@ -141,6 +194,7 @@ function eliminarItemCarrito(event) {
     parseFloat(totalNum) - parseFloat(precioItem) * parseInt(cantidadItem);
   document.getElementsByClassName("carrito-precio-total")[0].innerText =
     "$" + total.toLocaleString("es") + ",00";
+  OcultarCarrito();
 }
 
 function sumarCantidad(event) {
@@ -196,7 +250,9 @@ function restarCantidad(event) {
   var buttonClicked = event.target;
   var selector = buttonClicked.parentElement;
 
-  var cantidadInput = selector.getElementsByClassName("carrito-item-cantidad",)[0].value;
+  var cantidadInput = selector.getElementsByClassName(
+    "carrito-item-cantidad",
+  )[0].value;
   var cantidadActual = parseInt(cantidadInput);
   cantidadActual--;
   selector.getElementsByClassName("carrito-item-cantidad")[0].value =
@@ -269,7 +325,7 @@ function agregarItemBD(idProduct, idCarrito) {
     `.carrito-item[data-id="${idProduct}"]`,
   );
   if (productoRepetido) {
-    alert("Ya está ese producto en el cashito pue");
+    alert("Item already in the cart");
     return;
   } else {
     fetch("pages/agregar_al_carrito.php", {
@@ -283,6 +339,7 @@ function agregarItemBD(idProduct, idCarrito) {
       .then((res) => {
         if (res.success && res.producto) {
           mostrarCambios(res.producto);
+          OcultarCarrito();
         } else {
           console.error("error en la respuesta", res);
         }
@@ -303,6 +360,7 @@ function cargarProductos() {
   fetch("carrito_usuario.php")
     .then((res) => res.json())
     .then((data) => {
+      console.log("me ejecuté chee");
       console.log("este es el id che: " + data.id);
       var id_usuario = data.id;
 
@@ -315,23 +373,24 @@ function cargarProductos() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log("Json entregado correctamente", data);
+          console.log("Json 2 entregado correctamente", data);
           const contenedor = document.getElementById("purchase-items");
           var total = 0;
-          if (data.length) {
-            for (let i = 0; i < data.length; i++) {
-              var rutaImagen = "../" + data[i].imgURL;
+          console.log("El data length es: ", data.items.length);
+          if (data.items.length) {
+            for (let i = 0; i < data.items.length; i++) {
+              var rutaImagen = "../" + data.items[i].imgURL;
               contenedor.innerHTML += `
         <div class="item-carrito">
             <div class="contenedorUno">
                 <img src="${rutaImagen}" class="img-item-pago">
             </div>
             <div class="contenedorDos">
-                <h3>${data[i].nombre}</h3>
-                <p>Cantidad: ${data[i].cantidad}, Precio Total: ${data[i].precio * data[i].cantidad}$</p>
+                <h3>${data.items[i].nombre}</h3>
+                <p>Quantity: ${data.items[i].cantidad}, Total price: ${data.items[i].precio * data.items[i].cantidad}$</p>
             </div>
         </div>`;
-              total += data[i].precio * data[i].cantidad;
+              total += data.items[i].precio * data.items[i].cantidad;
             }
             document.getElementsByClassName(
               "carrito-precio-total",

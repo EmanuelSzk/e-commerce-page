@@ -40,7 +40,9 @@ include '../php/conexion.php';
 
 <body>
 
-    <?php session_start(); ?>
+    <?php 
+    session_start();
+    ?>
 
     <div class="grid">
 
@@ -81,7 +83,7 @@ include '../php/conexion.php';
                         <li><a href="#Contact">Contact</a></li>
                     </ul>
 
-                    <a id='carrito-icon' href="pages/comprar.php">
+                    <a id='carrito-icon' href="../index.php">
                         <svg class='carrito-icon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                             <path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z" />
                         </svg></a>
@@ -99,39 +101,39 @@ include '../php/conexion.php';
 
                     <input type="hidden" id="id" name="id" value="<?= $_SESSION['user_id'] ?>">
 
-                    <label class="dato" for="nombre">Nombre del Cliente: </label>
+                    <label class="dato" for="nombre">Customer name: </label>
                     <input class="Rellenar" type="text" id="nombre" name="nombre" required>
 
-                    <label for="direccion">Dirección: </label>
+                    <label for="direccion">Address: </label>
                     <input class="Rellenar" type="text" id="direccion" name="direccion" required>
 
-                    <label for="telefono">Teléfono: </label>
+                    <label for="telefono">Phone number: </label>
                     <input class="Rellenar" type="tel" id="telefono" name="telefono" required>
 
-                    <label for="email">E-mail: </label>
+                    <label for="email">Email: </label>
                     <input class="Rellenar" type="email" id="email" name="email" required>
 
-                    <label for="pago">Medio de Pago: </label>
+                    <label for="pago">Payment method: </label>
                     <select class="Rellenar" id="pago" name="pago" required>
-                        <option value="">Selecciona una opción</option>
-                        <option value="efectivo">Efectivo</option>
+                        <option value="">Chose an option</option>
+                        <option value="efectivo">Cash</option>
                         <option value="mercadopago">Mercado Pago</option>
                     </select>
 
-                    <button type="submit" class="btn-pagar">Confirmar compra</button>
+                    <button type="submit" class="btn-pagar">Confirm purchase</button>
 
                 </form>
 
                 <div class="productos-carrito">
 
                     <div class="header-pago" id="header-pago">
-                        Tu resumen
+                        Your summary
                     </div>
                     <div class="purchase-items" id="purchase-items">
                     </div>
                     <div class="footer-pago">
                         <div class="fila2">
-                            <strong>Precio final</strong>
+                            <strong>Total to pay</strong>
                             <span class="carrito-precio-total">
                                 $0,00
                             </span>

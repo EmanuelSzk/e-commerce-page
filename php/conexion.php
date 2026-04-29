@@ -1,5 +1,7 @@
 <?php 
 
+require_once __DIR__ . '/../config.php';
+
 // Hosting
 //$serverName = 'sql103.infinityfree.com';
 //$userName = 'root';
@@ -7,11 +9,11 @@
 //$dbName = 'if0_40116669_ecommerce';
 
 // Pruebas locales
-$serverName = '127.0.0.1:3307'; 
+$serverName = DB_HOST; 
 // $serverName = 'localhost';
-$userName = 'root';
-$password = '';
-$dbName = 'ecommerce';
+$userName = DB_USER;
+$password = DB_PASSWORD;
+$dbName = DB_NAME;
 
 //crea la conexión con la base de datos
 $conection = new mysqli($serverName, $userName, $password, $dbName);

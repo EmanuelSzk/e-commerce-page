@@ -20,54 +20,54 @@
 
     <form class="card-box" id="register-form">
 
-        <h3>Crear Cuenta</h3>
+        <h3>Create account</h3>
 
         <div class="stack" style="display: flex; gap: 10px;">
             <div class="mb-3">
-                <label class="form-label">Nombre</label>
+                <label class="form-label">Name</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Nombre" id="first-name" required>
+                    <input type="text" class="form-control" placeholder="Name" id="first-name" required>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Apellido</label>
+                <label class="form-label">Last name</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Apellido" id="last-name" required>
+                    <input type="text" class="form-control" placeholder="Last name" id="last-name" required>
                 </div>
             </div>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Correo Electrónico</label>
+            <label class="form-label">Email</label>
             <div class="input-group">
                 <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
-                <input type="email" class="form-control" placeholder="tugatitosalvaje@gmail.com" id="email" required>
+                <input type="email" class="form-control" placeholder="User123@gmail.com" id="email" required>
             </div>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Contraseña</label>
+            <label class="form-label">Password</label>
             <div class="input-group">
                 <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-                <input type="password" class="form-control" placeholder="Crea una contraseña" id="password" required>
+                <input type="password" class="form-control" placeholder="Create a password" id="password" required>
             </div>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Confirmar contraseña</label>
+            <label class="form-label">Confirm Password</label>
             <div class="input-group">
                 <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-                <input type="password" class="form-control" placeholder="Repite la contraseña" id="password-confirm" required>
+                <input type="password" class="form-control" placeholder="Repeate your password" id="password-confirm" required>
             </div>
         </div>
 
-        <button type="submit" class="btn-main">Registrarse</button>
+        <button type="submit" class="btn-main">Sign up</button>
 
     </form>
 
     <p class="text-center mt-3" style="font-size: 14px;">
-        ¿Ya tienes una cuenta? <a href="login.php">Iniciar Sesión</a>
+        you already have an account? <a href="login.php">Log in</a>
     </p>
 
     <script src="../Scripts/register.js"></script>

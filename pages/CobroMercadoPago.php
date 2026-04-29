@@ -2,13 +2,16 @@
 
 require '../vendor/autoload.php';
 
+require_once __DIR__ . '/../config.php';
+
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
 
-MercadoPagoConfig::setAccessToken("APP_USR-1083867964253761-031501-0dcc721f2f482021091c93f111710088-3268408474");
+MercadoPagoConfig::setAccessToken(MERCADOPAGO_ACCESS_TOKEN);
 
-$client = new PreferenceClient();
-$preference = $client->create([
+$Client = new PreferenceClient();
+$preference = $Client->create([
+    "notification_url" => "localhost/e-commerce-page/CRUD/notification.php",   
     "items" => array(
         array(
             "title" => "Producto",

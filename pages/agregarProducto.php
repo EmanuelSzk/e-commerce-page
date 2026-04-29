@@ -11,7 +11,7 @@ include '../php/conexion.php';
     <meta charset="UTF-8">
     <title>E-commerce de Postres</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Styles/Style.css?v=8.8s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
+    <link rel="stylesheet" href="../Styles/Style.css?v=8.9ens"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Poppins:wght@600;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,77 +81,121 @@ include '../php/conexion.php';
 
     </header>
 
-    <table style="margin: 100px 0 0 50px;">
-        <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Imagen</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Categoría</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Borrar</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <?php
+    <main>
+        <div class="admin-container">
 
-                $sql = "SELECT * FROM productos";
-                $resultados = $conection->query($sql);
+            <h2 class="admin-title">Gestión de Productos</h2>
 
-                if ($resultados->num_rows > 0) {
-                    while ($row = $resultados->fetch_assoc()) {
-                        echo "
-        <tr>
-            <th scope='row'>{$row['id']}</th>
-            <td>{$row['nombre']}</td>
-            <td>
-                <img src='../{$row['imgURL']}' width='60'>
-            </td>
-            <td>{$row['descripcion']}</td>
-            <td>{$row['categoria']}</td>
-            <td>{$row['precio']}</td>
-            <td>{$row['stock']}</td>
-            <td><a href='../CRUD/editar.php?id={$row['id']}'>Editar</a></td>
-            <td><a href='../CRUD/borrar.php?id={$row['id']}'>Borrar</a></td>
-        </tr>
-        ";
-                    }
-                }
-                ?>
+            <div class="productos-table-container">
+                <table class="productos-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Imagen</th>
+                            <th>Descripción</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $sql = "SELECT * FROM productos";
+                        $resultados = $conection->query($sql);
 
-            </tr>
-        </tbody>
-    </table>
+                        if ($resultados->num_rows > 0) {
+                            while ($row = $resultados->fetch_assoc()) {
+                                echo "
+                                <tr>
+                                    <td>{$row['id']}</td>
+                                    <td>{$row['nombre']}</td>
+                                    <td>
+                                        <img src='../{$row['imgURL']}' class='producto-img' alt='{$row['nombre']}'>
+                                    </td>
+                                    <td class='descripcion-cell'>{$row['descripcion']}</td>
+                                    <td>{$row['categoria']}</td>
+                                    <td>$ {$row['precio']}</td>
+                                    <td>{$row['stock']}</td>
+                                    <td class='acciones-cell'>
+                                        <a href='../CRUD/editar.php?id={$row['id']}' class='btn-editar'>
+                                            <i class='fas fa-edit'></i> Editar
+                                        </a>
+                                        <a href='../CRUD/borrar.php?id={$row['id']}' class='btn-borrar' onclick='return confirm(\"¿Estás seguro de eliminar este producto?\")'>
+                                            <i class='fas fa-trash'></i> Borrar
+                                        </a>
+                                    </td>
+                                </tr>
+                                ";
+                            }
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
 
-    <h2>Añadir producto nuevo</h2>
+            <div class="agregar-producto-section">
+                <h3 class="agregar-title">
+                    <i class='fas fa-plus-circle'></i> Añadir Producto Nuevo
+                </h3>
 
-    <form action="../CRUD/agregar_producto.php" method="POST" enctype="multipart/form-data">
+                <form class="agregar-form" action="../CRUD/agregar_producto.php" method="POST" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre">
+                                <i class='fas fa-tag'></i> Nombre
+                            </label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Ej: Torta de Chocolate" required>
+                        </div>
 
-        <label>Nombre</label>
-        <input type="text" name="nombre" value="Comida: " required>
+                        <div class="form-group">
+                            <label for="categoria">
+                                <i class='fas fa-list'></i> Categoría
+                            </label>
+                            <input type="text" id="categoria" name="categoria" placeholder="Ej: Tortas" required>
+                        </div>
+                    </div>
 
-        <label>Imagen</label>
-        <input type="file" name="imagen" accept="image/*" required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="descripcion">
+                                <i class='fas fa-align-left'></i> Descripción
+                            </label>
+                            <input type="text" id="descripcion" name="descripcion" placeholder="Descripción del producto" required>
+                        </div>
 
-        <label>Descripción</label>
-        <input type="text" name="descripcion" value="Descripción: " required>
+                        <div class="form-group">
+                            <label for="imagen">
+                                <i class='fas fa-image'></i> Imagen
+                            </label>
+                            <input type="file" id="imagen" name="imagen" accept="image/*" required>
+                        </div>
+                    </div>
 
-        <label>Categoría</label>
-        <input type="text" name="categoria" value="Categoria: " required>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="precio">
+                                <i class='fas fa-dollar-sign'></i> Precio
+                            </label>
+                            <input type="number" id="precio" name="precio" step="0.01" placeholder="0.00" required>
+                        </div>
 
-        <label>Precio</label>
-        <input type="number" name="precio" value="10.00$" required>
+                        <div class="form-group">
+                            <label for="stock">
+                                <i class='fas fa-box'></i> Stock
+                            </label>
+                            <input type="number" id="stock" name="stock" placeholder="0" required>
+                        </div>
+                    </div>
 
-        <label>Stock</label>
-        <input type="number" name="stock" value="3" required>
-
-        <button type="submit">Añadir Producto</button>
-
-    </form>
+                    <button type="submit" class="btn-agregar">
+                        <i class='fas fa-plus'></i> Añadir Producto
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
 
     <script src="../Scripts/CRUD.js"> </script>
 

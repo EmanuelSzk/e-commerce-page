@@ -11,7 +11,7 @@ include 'php/conexion.php';
     <meta charset="UTF-8">
     <title>E-commerce de Postres</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Styles/Style.css?v=8.8s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
+    <link rel="stylesheet" href="Styles/Style.css?v=1.2s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Poppins:wght@600;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,15 +42,7 @@ include 'php/conexion.php';
     <div class="grid">
 
         <?php
-        session_start();
-
-        if ($_SESSION['user_name'] == "lionel") {
-            echo "que onda admin";
-        } elseif (isset($_SESSION['user_name'])) {
-            echo "Bienvenido " . $_SESSION['user_name'];
-        } else {
-            echo "No estás logueado";
-        }
+        session_start()
         ?>
 
         <header>
@@ -91,8 +83,8 @@ include 'php/conexion.php';
                         <li><a href="login/login.php">Login</a></li>
                     </ul>
 
-                    <a id='carrito-icon' href="pages/comprar.php">
-                        <svg class='carrito-icon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                    <a id='carrito-icon'>
+                        <svg class='carrito-icon' id="botonVerCarrito" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                             <path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z" />
                         </svg></a>
 
@@ -103,6 +95,9 @@ include 'php/conexion.php';
 
 
         <main>
+            <?php if (isset($_SESSION['user_name'])): ?>
+                <h2 class="user-greeting">Hi, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</h2>
+            <?php endif; ?>
             <div class="background-hero-section">
                 <div class="hero-section">
                     <div class="info">
@@ -131,19 +126,19 @@ include 'php/conexion.php';
                     <svg style='fill: white;' width="3rem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                         <path d="M24 48C10.7 48 0 58.7 0 72C0 85.3 10.7 96 24 96L69.3 96C73.2 96 76.5 98.8 77.2 102.6L129.3 388.9C135.5 423.1 165.3 448 200.1 448L456 448C469.3 448 480 437.3 480 424C480 410.7 469.3 400 456 400L200.1 400C188.5 400 178.6 391.7 176.5 380.3L171.4 352L475 352C505.8 352 532.2 330.1 537.9 299.8L568.9 133.9C572.6 114.2 557.5 96 537.4 96L124.7 96L124.3 94C119.5 67.4 96.3 48 69.2 48L24 48zM208 576C234.5 576 256 554.5 256 528C256 501.5 234.5 480 208 480C181.5 480 160 501.5 160 528C160 554.5 181.5 576 208 576zM432 576C458.5 576 480 554.5 480 528C480 501.5 458.5 480 432 480C405.5 480 384 501.5 384 528C384 554.5 405.5 576 432 576z" />
                     </svg>
-                    <h2>Tu Carrito</h2>
+                    <h2>Your cart</h2>
                 </div>
                 <div id="agregar-carrito">
                 </div>
 
                 <div class="carrito-total">
                     <div class="fila">
-                        <strong>Tu total</strong>
+                        <strong>Order Total</strong>
                         <span class="carrito-precio-total">
                             $0,00
                         </span>
                     </div>
-                    <button class="btn-pagar" onclick="window.location.href='pages/comprar.php'">Confirmar compra <i class="fa-solid fa-bag-shopping fa-lg"></i></button>
+                    <button class="btn-pagar" onclick="window.location.href='pages/comprar.php'">Confirm purchase <i class="fa-solid fa-bag-shopping fa-lg"></i></button>
                     <div class="imagen-pago">
                         <img src="Sources/LogoPago.png" alt="">
                     </div>
@@ -154,7 +149,7 @@ include 'php/conexion.php';
 
                 <?php
 
-                if ($_SESSION['user_name'] == "lionel") {
+                if (isset($_SESSION['user_name']) && $_SESSION['user_name'] == "lionel") {
                     echo '<a href="pages/agregarProducto.php"> <div class="card">';
                     echo '      <img class="img-item" src="Sources/sumarProducto.png">';
                     echo '</div> </a>';
@@ -171,31 +166,34 @@ include 'php/conexion.php';
                         echo '  </div>';
                         echo '  <h3 class="nombre">' . $row['nombre'] . '</h3>';
                         echo '  <p class="precio">$' . $row['precio'] . '</p>';
-                        echo '  <button class="boton-item" data-id="' . $row['id'] . '">Agregar al carrito</button>';
+                        if (isset($_SESSION['user_name'])) {
+                            echo '  <button class="boton-item" data-id="' . $row['id'] . '">Add to your cart</button>';
+                        } else {
+                            echo '  <a href="login/login.php"> <button class="boton-item2">Login to shop</button></a>';
+                        }
                         echo '</div>';
                     }
                 } else {
-                    echo "<p>No hay productos disponibles</p>";
+                    echo "<p>There's no availables products</p>";
                 }
                 ?>
 
             </section>
 
             <div class="ver-productos">
-                <button class="boton-item" onclick="window.location.href='products.php'">Todos los productos</button>'
+                <button class="boton-item" onclick="window.location.href='products.php'">All products</button>'
             </div>
             <!--About me-->
             <section class="about-me" id="about-me">
                 <h2 class="h2">About me</h2>
                 <article class="bio">
                     <div>
-                        <h3>Lorem Ipsum</h3>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dignissimos amet, omnis fuga
-                            accusamus nihil soluta explicabo reprehenderit in dolorem accusantium dolorum eligendi ab
-                            illum quibusdam et? Dolore explicabo tenetur expedita? Lorem ipsum dolor sit, amet
-                            consectetur adipisicing elit. Tempore asperiores dolore mollitia adipisci harum impedit nam
-                            magni! Numquam natus sint sapiente dolore magni officiis impedit quidem? Quis nam minus
-                            sequi?</p>
+                        <h3>Dulces Juliana</h3>
+                        <p> In our world, every bite tells a story. We are an artisan pastry shop born from a passion for sweets and a love for detail. It all started in a home kitchen, where each recipe was carefully refined until it became what we proudly offer today: fresh, handmade products crafted with high-quality ingredients.</br>
+
+                            We specialize in custom cakes, cupcakes, and desserts designed to make your special moments even more memorable. We believe pastry is not just food, but an experience that awakens emotions and creates lasting memories. </br>
+
+                            Choosing us means choosing authenticity: no mass production, no shortcuts—just dedication in every creation. We invite you to discover our flavors and become part of our story.</p>
                     </div>
                     <img src="Sources/Perfil.jpg">
                 </article>
@@ -205,12 +203,12 @@ include 'php/conexion.php';
             <section class="Contact me" id="Contact">
                 <h2 class="h2">Contact me</h2>
                 <div class="centrar2">
-                    <form class="contact-form">
-                        <input type="text" placeholder="Your name">
-                        <input type="email" placeholder="Your email">
-                        <input type="text" placeholder="Subject">
-                        <input type="text" placeholder="Message...">
-                        <button>Send Message</button>
+                    <form class="contact-form" action="CRUD/contact_form.php" method="POST">
+                        <input type="text" name="nombre" placeholder="Your name" required>
+                        <input type="email" name="email" placeholder="Your email" required>
+                        <input type="text" name="asunto" placeholder="Subject" required>
+                        <input type="text" name="mensaje" placeholder="Message..." required>
+                        <button type="submit">Send Message</button>
                     </form>
                     <img src="Sources/contact-me.jpg" style="border-radius: 20px;">
                 </div>
@@ -219,7 +217,7 @@ include 'php/conexion.php';
         </main>
 
         <footer>
-            <p>&copy; 2025 Dulces Juliana | Todos los derechos reservados</p>
+            <p>&copy; 2025 Dulces Juliana | All rights reserved</p>
         </footer>
     </div>
 
@@ -232,8 +230,14 @@ include 'php/conexion.php';
             });
         });
     </script>
-
     <script src="Scripts/script.js"></script>
+
+    <?php if (!isset($_SESSION['user_name'])): ?>
+        <script type='text/javascript'>
+            OcultarCarritoSinSesión();
+        </script>
+    <?php endif; ?>
+    
 </body>
 
 </html>

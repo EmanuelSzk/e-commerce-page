@@ -4,6 +4,8 @@ session_start();
 
 require '../vendor/autoload.php';
 
+require_once __DIR__ . '/../config.php';
+
 use MercadoPago\MercadoPagoConfig;
 use MercadoPago\Client\Preference\PreferenceClient;
 
@@ -22,7 +24,7 @@ $_SESSION['compra_email'] = $_POST['email'];
 $_SESSION['compra_pago'] = $_POST['pago'];
 $_SESSION['compra_id'] = $_POST['id'];
 
-MercadoPagoConfig::setAccessToken("APP_USR-1083867964253761-031501-0dcc721f2f482021091c93f111710088-3268408474");
+MercadoPagoConfig::setAccessToken(MERCADOPAGO_ACCESS_TOKEN);
 
 $client = new PreferenceClient();
 $preference = $client->create([
@@ -66,7 +68,7 @@ $preferenceId = $preference->id;
 
     <script>
         // Configure sua chave pública do Mercado Pago
-        const publicKey = "APP_USR-97aece7c-27c6-4149-80c3-3caabc7a702e";
+        const publicKey = MERCADOPAGO_PUBLIC_KEY;
         // Configure o ID de preferência que você deve receber do seu backend
         const preferenceId = "<?php echo $preferenceId; ?>";
 
