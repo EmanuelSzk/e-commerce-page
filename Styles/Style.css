@@ -155,8 +155,15 @@ main {
   display: flex;
 }
 
-.Desc {
+.description {
   line-height: 2;
+}
+
+.options {
+  margin-top: 40px;
+  gap: 30px;
+  display: flex; 
+  align-items:center
 }
 
 .item-menu {
@@ -204,7 +211,6 @@ main {
 .button-hero path {
   stroke: #ff65d9;
 }
-
 
 .button-hero:hover path {
   stroke: #ffffff;
@@ -695,13 +701,27 @@ footer {
 }
 
 /* Parte responsive */
-@media (max-width: 1700px) {
+@media (max-width: 1780px) {
   .hero-section {
-    height: 27vw;
+    height: 30vw;
   }
 
   .fruti img {
     width: 30vw;
+  }
+
+  .heart {
+    width: 4.5vw;
+  }
+
+  .under-line {
+    width: 15vw;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .description {
+    margin: 0;
   }
 
   .info {
@@ -712,19 +732,43 @@ footer {
     font-size: 0.8vw;
   }
 
+  .button-hero {
+    padding: 1vw;
+    margin: 1vw 0 0 0;
+    font-size: 1vw;
+  }
+
+  .button-hero svg {
+    width: 1vw;
+  }
+
+  .item-menu {
+    margin: 0;
+  }
+
+  .item-menu svg {
+    width: 2vw;
+  }
+
+  .options {
+    margin-top: 1.5vw;
+  }
+
   .user-greeting {
-    font-size: 2vw;
+    font-size: 1vw;
+    max-width: fit-content;
+    margin: 1vw 0 1vw 0;
+    padding: 0.5vw;
+  }
+
+  .user-greeting img {
+    width: 1vw;
   }
 
   .welcome2 {
-    font-size: 6vw;
-    font-weight: 400;
-    line-height: 1.1;
-    max-width: 40vw;
-    margin-bottom: 1vw;
-    margin-top: 2vw;
-    font-family: "calistoga";
-    z-index: 2;
+    font-size: 4vw;
+    max-width: 35vw;
+    margin: 0;
   }
 
   .products {
@@ -848,10 +892,6 @@ footer {
 }
 
 @media (max-width: 1235px) {
-  .welcome2 {
-    margin-top: 4vw;
-  }
-
   button {
     margin-top: 2vw;
     padding: 1vw 1.5vw;
@@ -894,7 +934,7 @@ footer {
 /* Carrito */
 @media (max-width: 768px) {
   .hero-section {
-    height: 42vw;
+    height: 35vw;
   }
 
   .fruti img {
@@ -902,13 +942,29 @@ footer {
   }
 
   .user-greeting {
-    font-size: 5vw;
+    background-color: white;
+    font-size: 2vw;
+    border-radius: 20px 0 20px 0;
+    position: fixed;
+    z-index: 3;
+  }
+
+  .user-greeting img {
+    width: 2vw;
+  }
+
+  .options {
+    gap: 10px;
+  }
+
+  .item-menu p {
+    margin-bottom: 0 !important;
   }
 
   .welcome2 {
-    font-size: 7.5vw;
-    max-width: 50vw;
-    margin-bottom: 3vw;
+    margin-top: 20px;
+    font-size: 4vw;
+    max-width: 35vw;
   }
 
   .info p {
@@ -916,8 +972,12 @@ footer {
     margin-bottom: 2vw;
   }
 
+  .button-hero {
+    margin-top: 0;
+  }
+
   .carrito {
-    width: 64vw;
+    width: 50vw;
     margin-top: 150px;
     margin-right: 10px;
   }
@@ -1011,6 +1071,20 @@ footer {
   .imagen-pago img {
     width: 20vw;
   }
+}
+
+@media (max-width: 670px) {
+  .options {
+    display: none;
+  }
+
+  .button-hero {
+    font-size: 1.5vw;
+  }
+  .button-hero svg {
+    width: 1.5vw;
+  }
+
 }
 
 @media (max-width: 480px) {

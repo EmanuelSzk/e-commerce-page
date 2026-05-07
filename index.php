@@ -11,7 +11,7 @@ include 'php/conexion.php';
     <meta charset="UTF-8">
     <title>E-commerce de Postres</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Styles/Style.css?v=1.7s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
+    <link rel="stylesheet" href="Styles/Style.css?v=2.2s"> <!-- el "?v=1.1" es para que al entrar por xampp a la página en php se actualice el style.css y no se use el style.css guardado en la caché de la página y así visualizar los cambios al recargar -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Poppins:wght@600;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,12 +103,12 @@ include 'php/conexion.php';
                     <div class="info">
 
                         <?php if (isset($_SESSION['user_name'])): ?>
-                            <h2 class="user-greeting" style="display: flex; align-items:center; gap: 5px; max-width: 110px">
+                            <h2 class="user-greeting" style="display: flex; align-items:center; gap: 5px; max-width: fit-content">
                                 <img src="Sources\corazon user.png" width="20px">
                                 Hi, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!
                             </h2>
                         <?php else: ?>
-                            <h2 class="user-greeting" style="display: flex; align-items:center; gap: 5px; max-width: 120px">
+                            <h2 class="user-greeting" style="display: flex; align-items:center; gap: 5px; max-width: fit-content">
                                 <img src="Sources\corazon user.png" width="20px">
                                 Hi, Sign In!
                             </h2>
@@ -116,14 +116,14 @@ include 'php/conexion.php';
 
                         <div style="display: flex;">
                             <h2 class="welcome2">Delicious <b>cakes</b> made for <b> you</b>
-                                <img src="Sources\Pink heart.png" width="70px" height="auto">
+                                <img class="heart" src="Sources\Pink heart.png" width="70px" height="auto">
                             </h2>
                         </div>
-                        <img src="Sources\Subrayado.png" width="270px" style="margin-bottom: 10px;">
+                        <img class="under-line" src="Sources\Subrayado.png" width="270px" style="margin-bottom: 10px;">
                         <div class="fruti">
 
                             <div>
-                                <p class="Desc">Artisan desserts made with love, high-quality <br> ingredientes, and perfect for every special moment.</p>
+                                <p class="description">Artisan desserts made with love, high-quality <br> ingredientes, and perfect for every special moment.</p>
                                 <div style="display:flex; gap:20px;">
                                     <button class="button-hero" onclick="window.location.href='products.php'" style="display:flex; gap: 10px; align-items: center;">
                                         Pre-order now
@@ -138,7 +138,7 @@ include 'php/conexion.php';
                                     <button class="button-hero" onclick="window.location.href='#about-me'">About me</button>
                                 </div>
 
-                                <div class="options" style="display: flex; margin-top:40px; gap: 30px;">
+                                <div class="options">
 
                                     <div class="item-menu">
                                         <svg fill="#ff65d9" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 463.001 463.001" xml:space="preserve" stroke="#ff65d9">
@@ -192,7 +192,7 @@ include 'php/conexion.php';
                 </div>
 
             </div>
-        
+
             <h2 class="pre-tittle" id="shop">Most popular</h2>
             <h2 class="welcome">¡Our Products!</h2>
 
@@ -265,7 +265,7 @@ include 'php/conexion.php';
 
                             We specialize in custom cakes, cupcakes, and desserts designed to make your special moments even more memorable. We believe pastry is not just food, but an experience that awakens emotions and creates lasting memories. </br>
 
-                            Choosing us means choosing authenticity: no mass production, no shortcuts—just dedication in every creation. We invite you to discover our flavors and become part of our story.</p>
+                            Choosing us means choosing authenticity: no mass production, no shortcuts just dedication in every creation. We invite you to discover our flavors and become part of our story.</p>
                     </div>
                     <img src="Sources/Perfil.jpg">
                 </article>
